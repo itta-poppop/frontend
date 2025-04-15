@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.ita.poppop"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.ita.poppop"

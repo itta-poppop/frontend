@@ -2,6 +2,8 @@ package com.ita.poppop.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseActivity
@@ -12,12 +14,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         binding.apply {
+            //Android System NavBar Icon Color
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = true
+
             // FragmentContainerView에 동적으로 navi 연결
             val navHostFragment = supportFragmentManager
                 .findFragmentById(R.id.fcv_main_activity_container) as NavHostFragment
             val navController = navHostFragment.navController
             navController.setGraph(R.navigation.navi_launch)
-
 
         }
     }

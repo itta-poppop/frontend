@@ -58,10 +58,12 @@
 
     <!--    Text Size(sp)-->
     <dimen name="text_11">11sp</dimen>
+    <dimen name="text_13">13sp</dimen>
     <dimen name="text_14">14sp</dimen>
     <dimen name="text_16">16sp</dimen>
     <dimen name="text_18">18sp</dimen>
     <dimen name="text_20">20sp</dimen>
+    <dimen name="text_22">22sp</dimen>
 
     <!--    Text LineSpacing(px)-->
     <dimen name="linespacing_22">0px</dimen>

@@ -21,13 +21,7 @@ class ProfileFragment: BaseFragment<FragmentProfileBinding>(R.layout.fragment_pr
             val myList = mutableListOf(0,1,2,3,4,5)
 
             val historyAdapter = ProfileReviewAdapter(myList)
-            val spacingInPx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                11f,   // dp 값
-                context?.resources?.displayMetrics
-            ).toInt()
-
-            rvProfileMyReview.addItemDecoration(ProfileReviewItemDecoration(spacingInPx))
+            rvProfileMyReview.addItemDecoration(ProfileReviewItemDecoration())
             rvProfileMyReview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             rvProfileMyReview.adapter = historyAdapter
 

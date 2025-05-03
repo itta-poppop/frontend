@@ -16,12 +16,15 @@
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_44">44dp</dimen>
     <dimen name="margin_48">48dp</dimen>
+    <dimen name="margin_52">52dp</dimen>
     <dimen name="margin_56">56dp</dimen>
     <dimen name="margin_76">76dp</dimen>
     <dimen name="margin_80">80dp</dimen>
     <dimen name="margin_84">84dp</dimen>
     <dimen name="margin_88">88dp</dimen>
     <dimen name="margin_96">96dp</dimen>
+    <dimen name="margin_152">152dp</dimen>
+    <dimen name="margin_164">164dp</dimen>
     <dimen name="margin_212">212dp</dimen>
     <dimen name="margin_224">224dp</dimen>
 
@@ -51,9 +54,12 @@
     <dimen name="item_100">100dp</dimen>
     <dimen name="item_108">108dp</dimen>
     <dimen name="item_132">132dp</dimen>
+    <dimen name="item_138">138dp</dimen>
     <dimen name="item_140">140dp</dimen>
     <dimen name="item_142">142dp</dimen>
     <dimen name="item_168">168dp</dimen>
+    <dimen name="item_200">200dp</dimen>
+    <dimen name="item_280">280dp</dimen>
     <dimen name="item_324">324dp</dimen>
 
     <!--    Text Size(sp)-->

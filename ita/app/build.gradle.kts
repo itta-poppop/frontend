@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.safeargs)
+    //alias(libs.plugins.safeargs)
+
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -54,5 +56,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //navigation graph-main
+    val nav_version = "2.8.9"
+
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+
+    // 네이버 지도 SDK
+    implementation ("com.naver.maps:map-sdk:3.21.0")
 
 }

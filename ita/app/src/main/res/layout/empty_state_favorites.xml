@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_56"
+        android:src="@drawable/empty_state_icon"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_state_logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_16"
+        android:text="찜한 팝업 정보가 없어요."
+        android:textSize="@dimen/text_20"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="별 아이콘을 눌러 마음에 드는 팝업 정보를 찜해보세요."
+        android:textSize="@dimen/text_14"
+        android:textStyle="bold"
+        android:textColor="@color/gray_700"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:paddingHorizontal="@dimen/margin_36"
+        android:text="팝업 보러가기"
+        android:textSize="@dimen/text_16"
+        android:background="@drawable/favorites_empty_state_btn_background"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

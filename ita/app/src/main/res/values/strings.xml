@@ -8,5 +8,9 @@
     <string name="main_btn_favorites_title">즐겨찾기</string>
     <string name="main_btn_profile_title">프로필</string>
 
+    <!-- 로그인 -->
+    <string name="login_tv_info">매일 새로운 팝업 정보를\n 한눈에 확인해요</string>
+    <string name="login_tv_help">로그인에 어려움이 있나요?</string>
+
 
 </resources>

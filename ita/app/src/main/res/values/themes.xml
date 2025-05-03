@@ -5,6 +5,13 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
 
+        <!-- splash -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="S">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="S">@drawable/app_logo_splash</item>
+
+
+        <!-- Android System NavBar Color -->
+        <item name="android:navigationBarColor">@color/white</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

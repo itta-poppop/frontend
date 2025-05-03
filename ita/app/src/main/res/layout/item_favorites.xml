@@ -20,25 +20,25 @@
 
                 <ImageView
                     android:id="@+id/iv_favorites"
-                    android:layout_width="@dimen/item_132"
-                    android:layout_height="@dimen/item_132"
+                    android:layout_width="@dimen/item_128"
+                    android:layout_height="@dimen/item_128"
                     tools:ignore="MissingConstraints" />
 
                 <ImageButton
                     android:id="@+id/btn_favorites_star"
-                    android:layout_width="@dimen/item_28"
-                    android:layout_height="@dimen/item_28"
+                    android:layout_width="@dimen/item_16"
+                    android:layout_height="@dimen/item_16"
                     android:background="@null"
                     android:src="@drawable/main_btn_favorites_icon"
                     app:tint="#F4ED17"
                     app:layout_constraintTop_toTopOf="@id/iv_favorites"
                     app:layout_constraintEnd_toEndOf="@id/iv_favorites"
-                    android:layout_margin="@dimen/item_4"/>
+                    android:layout_margin="@dimen/margin_10"/>
 
                 <TextView
                     android:id="@+id/tv_favorites_location"
                     android:text="장소"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_12"
                     android:textColor="@color/gray_600"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:id="@+id/tv_favorites_title"
                     android:text="제목"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_20"
+                    android:textSize="@dimen/text_17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
@@ -60,7 +60,7 @@
                     android:id="@+id/tv_favorites_period"
                     android:text="기간"
                     android:textStyle="bold"
-                    android:textSize="@dimen/text_14"
+                    android:textSize="@dimen/text_13"
                     android:textColor="@color/gray_800"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/item_28"
+                    android:textSize="@dimen/text_14"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="@dimen/item_4"
                     android:textColor="@color/primary_blue"

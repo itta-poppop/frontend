@@ -6,6 +6,7 @@
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_4">4dp</dimen>
     <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="margin_20">20dp</dimen>
@@ -50,6 +51,7 @@
     <dimen name="item_96">96dp</dimen>
     <dimen name="item_100">100dp</dimen>
     <dimen name="item_108">108dp</dimen>
+    <dimen name="item_128">128dp</dimen>
     <dimen name="item_132">132dp</dimen>
     <dimen name="item_140">140dp</dimen>
     <dimen name="item_142">142dp</dimen>
@@ -58,8 +60,11 @@
 
     <!--    Text Size(sp)-->
     <dimen name="text_11">11sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+    <dimen name="text_13">13sp</dimen>
     <dimen name="text_14">14sp</dimen>
     <dimen name="text_16">16sp</dimen>
+    <dimen name="text_17">17sp</dimen>
     <dimen name="text_18">18sp</dimen>
     <dimen name="text_20">20sp</dimen>
 

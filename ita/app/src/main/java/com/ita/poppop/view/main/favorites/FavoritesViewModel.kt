@@ -15,7 +15,7 @@ class FavoritesViewModel: ViewModel() {
         list.add(
             FavoritesRVItem(
                 1,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.empty_state_logo,
                 "수원시 서둔동",
                 "K현대미술관 X 우주먼지...",
                 "25.02.28 - 25.03.30",
@@ -25,7 +25,7 @@ class FavoritesViewModel: ViewModel() {
         list.add(
             FavoritesRVItem(
                 2,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.empty_state_logo,
                 "경기 김포시 양촌읍",
                 "곽철이 X 더 닐라이 팝업스...",
                 "25.03.31 - 25.03.31",
@@ -35,7 +35,7 @@ class FavoritesViewModel: ViewModel() {
         list.add(
             FavoritesRVItem(
                 3,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.empty_state_logo,
                 "서울 성동구",
                 "르세라핌 2025 S/S 팝업...",
                 "25.03.17 - 25.03.30",

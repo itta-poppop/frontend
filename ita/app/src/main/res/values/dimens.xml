@@ -13,6 +13,7 @@
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_28">28dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
     <dimen name="margin_36">36dp</dimen>
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_44">44dp</dimen>
@@ -25,6 +26,10 @@
     <dimen name="margin_96">96dp</dimen>
     <dimen name="margin_212">212dp</dimen>
     <dimen name="margin_224">224dp</dimen>
+
+    <!--    Dp Padding  -->
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_9">9dp</dimen>
 
     <!--    Dp Item  -->
     <dimen name="item_0">0dp</dimen>
@@ -59,6 +64,8 @@
     <dimen name="item_324">324dp</dimen>
 
     <!--    Text Size(sp)-->
+    <dimen name="text_6">6sp</dimen>
+    <dimen name="text_8">8sp</dimen>
     <dimen name="text_11">11sp</dimen>
     <dimen name="text_12">12sp</dimen>
     <dimen name="text_13">13sp</dimen>

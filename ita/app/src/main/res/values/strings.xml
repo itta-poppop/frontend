@@ -9,4 +9,13 @@
     <string name="main_btn_profile_title">프로필</string>
 
 
+    <!-- HomeFragment -->
+    <string name="home_searchbar_hint">원하는 팝업스토어 정보를 검색하세요</string>
+
+    <string name="home_trend_title">트렌드 팝업</string>
+    <string name="home_direction_title">어디로 가시나요?</string>
+    <string name="home_waiting_title">핫플레이스 웨이팅</string>
+    <string name="home_upcoming_title">오픈 예정 팝업</string>
+
+
 </resources>

@@ -13,4 +13,11 @@
     <string name="login_tv_help">로그인에 어려움이 있나요?</string>
 
 
+
+    <!-- 프로필 화면 -->
+    <string name="profile_frag_title">마이페이지</string>
+    <string name="profile_my_review_title">내가 쓴 리뷰</string>
+    <string name="profile_edit_profile_bt">프로필 수정</string>
+
+
 </resources>

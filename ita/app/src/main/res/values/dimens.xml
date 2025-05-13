@@ -25,11 +25,17 @@
     <dimen name="margin_212">212dp</dimen>
     <dimen name="margin_224">224dp</dimen>
 
+    <!--    Dp Padding  -->
+    <dimen name="padding_13">13dp</dimen>
+
     <!--    Dp Item  -->
     <dimen name="item_0">0dp</dimen>
     <dimen name="item_1">1dp</dimen>
     <dimen name="item_2">2dp</dimen>
     <dimen name="item_4">4dp</dimen>
+    <dimen name="item_11">11dp</dimen>
+    <dimen name="item_12">12dp</dimen>
+    <dimen name="item_13">13dp</dimen>
     <dimen name="item_16">16dp</dimen>
     <dimen name="item_18">18dp</dimen>
     <dimen name="item_24">24dp</dimen>

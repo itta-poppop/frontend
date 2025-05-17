@@ -10,17 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+        <com.ita.poppop.util.StatusBarSpaceView
+            android:id="@+id/sbsv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/main_btn_favorites_title"
-            app:titleCentered="true"
-            app:titleTextColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/sbsv"
+            app:title="@string/main_btn_favorites_title"
+            app:titleCentered="true"
+            app:titleTextColor="@color/black" />
 
         <View
             android:layout_width="match_parent"

@@ -12,23 +12,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.ita.poppop.util.StatusBarSpaceView
+                android:id="@+id/sbsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <!-- 검색창 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="15dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/sbsv">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/padding_13"
-                    android:paddingVertical="@dimen/item_12">
+                    android:paddingVertical="@dimen/item_12"
+                    android:paddingLeft="@dimen/padding_13">
 
                     <ImageView
                         android:id="@+id/iv_search_icon"

@@ -8,9 +8,17 @@ import com.ita.poppop.databinding.ItemHomeDirectionLayoutBinding
 
 
 
-class HomeDirectionAdapter(
-    private var items : MutableList<Int>,
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeDirectionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val directionList = mutableListOf(
+        Pair("성수", "성수역"),
+        Pair("여의도", "여의도역"),
+        Pair("홍대", "홍대역"),
+        Pair("강남", "강남역"),
+        Pair("잠실", "잠실역"),
+        Pair("용산", "용산역")
+    )
+
     init {
         setHasStableIds(true)
     }
@@ -21,22 +29,22 @@ class HomeDirectionAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HomeDirectionViewHolder).bind()
+        (holder as HomeDirectionViewHolder).bind(getItem(position))
     }
 
 
     // 아이템 반환 메서드
-    private fun getItem(position: Int): Int {
-        return items[position]
+    private fun getItem(position: Int): Pair<String, String> {
+        return directionList[position]
     }
 
     // 아이템 개수 반환 메서
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = directionList.size
 
     // 아이템 고유 ID 반환 메서드
     override fun getItemId(position: Int): Long {
-        return if (position in items.indices) {
-            items[position].hashCode().toLong()
+        return if (position in directionList.indices) {
+            directionList[position].hashCode().toLong()
         } else {
             -1L // 아이디를 찾지 못했을 때 반환되는 기본값
         }

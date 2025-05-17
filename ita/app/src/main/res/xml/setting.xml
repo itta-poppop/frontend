@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.ita.poppop.util.preference.EndIconPreference
+        app:key="pp"
+        app:title="서비스 이용약관"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_with_end_icon"/>
+    <com.ita.poppop.util.preference.EndIconPreference
+        app:key="set_noti"
+        app:title="알림 설정"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_with_end_icon"
+        android:fragment="com.ita.poppop.view.empty.setting.sub.NotificationSettingFragment"/>
+
+    <com.ita.poppop.util.preference.EndContentPreference
+        app:key="version"
+        app:title="버전"
+        app:summary="v1.0"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_with_end_content"/>
+    <com.ita.poppop.util.preference.EndNonPreference
+        app:key="logout"
+        app:title="로그아웃"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_with_end_non"/>
+</PreferenceScreen>

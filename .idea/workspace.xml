@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="fbf664c0-96c6-48f1-a98a-3f31b076883c" name="Changes" comment="" />
+=======
+    <list default="true" id="5e6f339d-50d7-4eca-9021-48eef87b23f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ita/app/src/main/res/layout/item_favorites.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ita/app/src/main/res/layout/item_favorites.xml" afterDir="false" />
+    </list>
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< Updated upstream
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
   "lastFilter": {
     "state": "OPEN",
@@ -33,6 +40,25 @@
   "associatedIndex": 6
 }]]></component>
   <component name="ProjectId" id="2wtnEYukXiByLFpX67jNB51Pulc" />
+=======
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;vahkjsdf&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ita-poppop/frontend.git&quot;,
+    &quot;accountId&quot;: &quot;291808c2-b54e-4a17-82e6-823e8fdf0001&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2wakGgtE0aMhJoeWVPGFHQ4OBs5" />
+>>>>>>> Stashed changes
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,7 +70,11 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+<<<<<<< Updated upstream
     "git-widget-placeholder": "ISSUE-6-feat/#9-MapFragment",
+=======
+    "git-widget-placeholder": "ISSUE-5-feat/#8-FavoritesFragment-Setting",
+>>>>>>> Stashed changes
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/82105/Desktop/SOLUX/ITA-poppop/frontend/ita"
   }
@@ -52,11 +82,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="fbf664c0-96c6-48f1-a98a-3f31b076883c" name="Changes" comment="" />
       <created>1746869627033</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1746869627033</updated>
+=======
+      <changelist id="5e6f339d-50d7-4eca-9021-48eef87b23f1" name="Changes" comment="" />
+      <created>1746286978807</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746286978807</updated>
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

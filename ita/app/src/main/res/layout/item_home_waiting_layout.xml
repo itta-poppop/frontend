@@ -4,57 +4,150 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imageView"
         android:layout_width="140dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="223dp"
-            android:src="#D9D9D9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="223dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="10dp"
+        app:strokeWidth="3dp"
+        app:strokeColor="@color/primary_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="26dp"
-            android:background="@drawable/_home_upcoming_count_box"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="0dp"
+                android:id="@+id/iv_waiting_image"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/_home_waiting_count_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/story_test"/>
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="6sp"
-                android:text="20+"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:layout_marginStart="7dp"
+                android:layout_height="26dp"
+                android:elevation="2dp"
+                android:background="@drawable/_home_upcoming_count_box"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/_home_waiting_count_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="6sp"
+                    android:text="20+"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_marginStart="7dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_12"
+                android:background="@drawable/shape_waiting_gradient"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:gravity="center_horizontal|start"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="7.5sp"
+                    android:maxLines="1"
+                    android:text="르세라핌 2025 S/S 팝업스토어"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" >
+
+                    <TextView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="팝업스토어"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textSize="11sp"
+                        android:textColor="@color/gray_600"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6sp"
+                        android:layout_marginVertical="1dp"
+                        android:src="@drawable/_home_trend_location_marker_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="2dp"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/_home_direction_background"
+                        app:tint="@color/gray_600"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6sp"
+                        android:layout_marginStart="4dp"
+                        android:text="서울 중구"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:textColor="@color/gray_600"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_goneMarginStart="4dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

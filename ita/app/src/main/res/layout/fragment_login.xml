@@ -16,7 +16,7 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/item_138"
             android:layout_height="@dimen/item_138"
-            android:layout_marginTop="@dimen/item_200"
+            android:layout_marginTop="@dimen/item_168"
             android:src="@drawable/app_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,33 +39,37 @@
             android:id="@+id/bt_login_kakao"
             android:layout_width="@dimen/item_280"
             android:layout_height="@dimen/item_44"
-            android:layout_marginTop="@dimen/margin_164"
+            android:layout_marginBottom="@dimen/margin_12"
             android:src="@drawable/login_kakao_login_bt"
+            app:layout_constraintBottom_toTopOf="@+id/bt_login_google"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <ImageButton
             android:id="@+id/bt_login_google"
             android:layout_width="@dimen/item_280"
             android:layout_height="@dimen/item_44"
-            android:src="@drawable/login_google_login_bt"
             android:layout_marginTop="@dimen/margin_12"
+            android:src="@drawable/login_google_login_bt"
+            android:layout_marginBottom="@dimen/margin_44"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_login_kakao" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_52"
+            android:layout_marginBottom="@dimen/margin_52"
             android:fontFamily="@font/pretendard_semibold"
             android:gravity="center"
             android:text="@string/login_tv_help"
-            android:textSize="@dimen/text_13"
             android:textColor="@color/gray_600"
+            android:textSize="@dimen/text_13"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_login_google" />
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

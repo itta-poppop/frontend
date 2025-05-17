@@ -8,10 +8,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+
+        <com.ita.poppop.util.StatusBarSpaceView
+            android:id="@+id/statusBarSpaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/statusBarSpaceView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -40,11 +55,11 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/item_38"
                         android:layout_marginHorizontal="@dimen/margin_8"
+                        android:background="@drawable/_home_search_bar"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_notification"
                         app:layout_constraintStart_toEndOf="@+id/imageView2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:background="@drawable/_home_search_bar">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/imageView3"
@@ -60,32 +75,24 @@
                             app:tint="@color/gray_500" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_10"
+                            android:fontFamily="@font/pretendard_semibold"
                             android:letterSpacing="-0.03"
                             android:lineSpacingExtra="@dimen/text_4"
-                            android:layout_marginStart="@dimen/margin_10"
                             android:text="@string/home_searchbar_hint"
                             android:textColor="@color/gray_500"
                             android:textSize="@dimen/text_12"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView3"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.523" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="@dimen/item_28"
-                        android:layout_height="@dimen/item_28"
-                        android:layout_marginVertical="@dimen/margin_16"
-                        android:layout_marginEnd="@dimen/margin_20"
-                        android:src="@drawable/_home_searchbar_noti_icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:layout_width="match_parent"
@@ -93,6 +100,18 @@
                         android:background="@color/gray_300"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/ib_notification"
+                        android:layout_width="@dimen/item_28"
+                        android:layout_height="@dimen/item_28"
+                        android:layout_marginVertical="@dimen/margin_16"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_notification_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,6 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_16"
+                        android:fontFamily="@font/pretendard_semibold"
                         android:text="@string/home_trend_title"
                         android:textSize="@dimen/text_18"
                         app:layout_constraintStart_toStartOf="parent"
@@ -118,8 +138,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12"
-                        android:paddingHorizontal="@dimen/padding_16"
                         android:clipToPadding="false"
+                        android:paddingHorizontal="@dimen/padding_16"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_trend_title" />
@@ -139,6 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_16"
+                        android:fontFamily="@font/pretendard_semibold"
                         android:text="@string/home_direction_title"
                         android:textSize="@dimen/text_18"
                         app:layout_constraintStart_toStartOf="parent"
@@ -155,6 +176,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_direction_title" />
 
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -169,6 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_16"
+                        android:fontFamily="@font/pretendard_semibold"
                         android:text="@string/home_waiting_title"
                         android:textSize="@dimen/text_18"
                         app:layout_constraintStart_toStartOf="parent"
@@ -210,10 +233,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_16"
+                        android:fontFamily="@font/pretendard_semibold"
                         android:text="@string/home_upcoming_title"
                         android:textSize="@dimen/text_18"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/item_24"
+                        android:layout_height="@dimen/item_24"
+                        android:layout_marginEnd="@dimen/margin_24"
+                        android:src="@drawable/chevron_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_upcoming_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_upcoming_title" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_upcoming"
@@ -221,8 +254,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_12"
                         android:clipToPadding="false"
-                        android:paddingHorizontal="@dimen/padding_16"
                         android:overScrollMode="never"
+                        android:paddingHorizontal="@dimen/padding_16"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_title" />
@@ -237,22 +270,81 @@
                     app:layout_constraintTop_toBottomOf="@+id/cl_upcoming" />
 
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <TextView
+            android:id="@+id/tx_fab_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:visibility="invisible"
+            android:background="@drawable/_home_search_bar"
+            android:fontFamily="@font/pretendard_semibold"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingVertical="@dimen/padding_2"
+            android:text="팝업 리뷰 쓰기"
+            android:textColor="@color/gray_600"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_2"
+            app:layout_constraintEnd_toStartOf="@+id/fab_2"
+            app:layout_constraintTop_toTopOf="@+id/fab_2" />
+
+
+        <ImageButton
+            android:id="@+id/fab_2"
             android:layout_width="@dimen/item_56"
             android:layout_height="@dimen/item_56"
-            android:src="@drawable/_home_fab_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:backgroundTint="@color/primary_blue"
-            app:tint="@color/white"
-            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:visibility="invisible"
+            android:elevation="4dp"
+            android:background="@drawable/shape_fab_background"
+            app:backgroundTint="#E8EEF9"
+            android:src="@drawable/user_icon"
+            app:layout_constraintBottom_toTopOf="@+id/fab_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="?attr/shapeAppearanceCornerExtraLarge" />
+
+        <TextView
+            android:id="@+id/tx_fab_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:visibility="invisible"
+            android:background="@drawable/_home_search_bar"
+            android:fontFamily="@font/pretendard_semibold"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingVertical="@dimen/padding_2"
+            android:text="대기줄 작성하기"
+            android:textColor="@color/gray_600"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_1"
+            app:layout_constraintEnd_toStartOf="@+id/fab_2"
+            app:layout_constraintTop_toTopOf="@+id/fab_1" />
+
+        <ImageButton
+            android:id="@+id/fab_1"
+            android:layout_width="@dimen/item_56"
+            android:layout_height="@dimen/item_56"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:visibility="invisible"
+            android:background="@drawable/shape_fab_background"
+            android:elevation="4dp"
+            android:src="@drawable/edit_icon"
+            app:backgroundTint="#E8EEF9"
+            app:layout_constraintBottom_toTopOf="@+id/ib_fab"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <ImageButton
+            android:id="@+id/ib_fab"
+            android:layout_width="@dimen/item_56"
+            android:layout_height="@dimen/item_56"
             android:layout_marginEnd="@dimen/margin_24"
             android:layout_marginBottom="@dimen/margin_28"
+            android:background="@drawable/shape_fab_background"
+            android:src="@drawable/_home_fab_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-        
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

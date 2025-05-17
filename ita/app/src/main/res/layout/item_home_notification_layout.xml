@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_delete_notification"
+            android:layout_width="@dimen/item_54"
+            android:layout_height="match_parent"
+            android:background="#E50C3B"
+            android:layout_gravity="end">
+
+            <ImageView
+                android:layout_width="@dimen/item_24"
+                android:layout_height="@dimen/item_24"
+                android:src="@drawable/icon_trash"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_notification_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_88"
+            android:paddingVertical="@dimen/padding_20"
+            android:paddingHorizontal="@dimen/padding_16"
+            android:background="@drawable/background_line_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <FrameLayout
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintDimensionRatio="1:1"
+                android:padding="@dimen/padding_12"
+                android:background="@drawable/_notification_item_icon_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_notification_icon"/>
+
+
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="@dimen/text_8"
+                    android:text="댓글"
+                    android:textColor="@color/gray_700"
+                    android:textSize="@dimen/text_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="@dimen/text_8"
+                    android:text="Wild_Zeal 님이 댓글을 달았어요. "
+                    android:textColor="@color/gray_900"
+                    android:textSize="@dimen/text_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- 3시간 전-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="@dimen/text_7"
+                    android:text="3시간 전"
+                    android:textColor="@color/gray_500"
+                    android:textSize="@dimen/text_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+
+</layout>
+

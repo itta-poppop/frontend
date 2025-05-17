@@ -1,7 +1,14 @@
 package com.ita.poppop.view
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
+import android.view.WindowInsetsController
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.NavHostFragment
@@ -14,8 +21,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         binding.apply {
-            //Android System NavBar Icon Color
-            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = true
+            enableEdgeToEdge()
 
             // FragmentContainerView에 동적으로 navi 연결
             val navHostFragment = supportFragmentManager

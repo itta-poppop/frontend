@@ -7,17 +7,23 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        >
+        android:layout_height="match_parent">
+        <com.ita.poppop.util.StatusBarSpaceView
+            android:id="@+id/statusBarSpaceView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_52"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/statusBarSpaceView">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,6 +92,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tx_edit_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/_profile_edit_bt"
@@ -204,7 +211,7 @@
             <ImageView
                 android:layout_width="@dimen/item_24"
                 android:layout_height="@dimen/item_24"
-                android:src="@drawable/_profile_chevron_right"
+                android:src="@drawable/chevron_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

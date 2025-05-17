@@ -56,7 +56,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
                 uiSettings.isZoomControlEnabled = false  // +/- 버튼
                 uiSettings.isCompassEnabled = false   // 나침반
                 uiSettings.isScaleBarEnabled = false
-                uiSettings.isLocationButtonEnabled = true
+                // uiSettings.isLocationButtonEnabled = true
                 uiSettings.isLogoClickEnabled = false
             }
 

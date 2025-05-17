@@ -1,5 +1,6 @@
 package com.ita.poppop.view.main.favorites
 
+import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -8,6 +9,7 @@ import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentFavoritesBinding
 import com.ita.poppop.view.main.hide
+import com.ita.poppop.view.main.home.InfoFragment
 import com.ita.poppop.view.main.show
 
 class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragment_favorites) {
@@ -38,6 +40,20 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
                 favoritesRVAdapter.submitList(response)
 
                 binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
+            })
+
+            favoritesRVAdapter.setFavoritesItemClickListener(object : FavoritesRVAdapter.FavoritesItemClickListener{
+                override fun onItemClick(position: Int) {
+                    val infoFragment = InfoFragment().apply {
+                        arguments = Bundle().apply {
+                        }
+                    }
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fcv_favorites_fragment_container, infoFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             })
         }
     }

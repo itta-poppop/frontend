@@ -1,16 +1,9 @@
 package com.ita.poppop.view.main.home
 
-import android.os.Bundle
-import android.util.TypedValue
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
-import com.ita.poppop.databinding.FragmentFavoritesBinding
 import com.ita.poppop.databinding.FragmentHomeBinding
 import com.ita.poppop.view.main.home.direction.HomeDirectionAdapter
 import com.ita.poppop.view.main.home.direction.HomeDirectionItemDecoration

@@ -36,6 +36,22 @@ class MapViewModel: ViewModel() {
                 "25.01.25 - 25.04.03"
             )
         )
+        list.add(
+            MapRVItem(
+                4,
+                R.drawable.main_btn_favorites_icon,
+                "블리치전 애니메이션 20주년 기념 서울 전시",
+                "25.01.25 - 25.04.03"
+            )
+        )
+        list.add(
+            MapRVItem(
+                5,
+                R.drawable.main_btn_favorites_icon,
+                "블리치전 애니메이션 20주년 기념 서울 전시",
+                "25.01.25 - 25.04.03"
+            )
+        )
         _mapList.value = list
     }
 }

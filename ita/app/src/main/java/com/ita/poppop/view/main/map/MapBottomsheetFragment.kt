@@ -11,6 +11,7 @@ import com.ita.poppop.base.BaseBottomSheetFragment
 import com.ita.poppop.databinding.FragmentMapBottomsheetBinding
 
 class MapBottomsheetFragment: BaseBottomSheetFragment<FragmentMapBottomsheetBinding>(R.layout.fragment_map_bottomsheet) {
+
     private lateinit var mapViewModel: MapViewModel
 
     private val mapRVAdapter by lazy {

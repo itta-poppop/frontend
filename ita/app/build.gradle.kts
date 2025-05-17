@@ -52,9 +52,14 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 
     //navigation graph-main
     val nav_version = "2.8.9"
@@ -64,5 +69,6 @@ dependencies {
 
     // 네이버 지도 SDK
     implementation ("com.naver.maps:map-sdk:3.21.0")
+
 
 }

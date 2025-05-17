@@ -12,6 +12,15 @@ import com.ita.poppop.databinding.ItemFavoritesBinding
 
 class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.FavoritesViewHolder>(FavoritesDiffutillCallback()) {
 
+    interface FavoritesItemClickListener{
+        fun onItemClick(position: Int)
+    }
+    private lateinit var favoritesItemClickListener : FavoritesItemClickListener
+
+    fun setFavoritesItemClickListener(itemClickListener: FavoritesItemClickListener){
+        favoritesItemClickListener = itemClickListener
+    }
+
     class FavoritesViewHolder(val binding: ItemFavoritesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FavoritesRVItem) {
             binding.apply {
@@ -47,5 +56,8 @@ class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.Favori
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            favoritesItemClickListener.onItemClick(position)
+        }
     }
 }

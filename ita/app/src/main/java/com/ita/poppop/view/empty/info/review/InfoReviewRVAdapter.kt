@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.review
+package com.ita.poppop.view.empty.info.review
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ita.poppop.databinding.ItemInfoReviewBinding
-import com.ita.poppop.view.main.info.review.image.InfoReviewImageRVAdapter
+import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVAdapter
 
 class InfoReviewRVAdapter: ListAdapter<InfoReviewRVItem, InfoReviewRVAdapter.InfoReviewViewHolder>(
 InfoReviewDiffutillCallback()

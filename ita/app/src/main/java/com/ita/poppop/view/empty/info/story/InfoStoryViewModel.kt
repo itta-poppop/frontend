@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.story
+package com.ita.poppop.view.empty.info.story
 
 import android.util.Log
 import androidx.lifecycle.LiveData

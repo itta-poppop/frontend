@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.recommend
+package com.ita.poppop.view.empty.info.recommend
 
 data class InfoRecommendRVItem(
     var itemId: Int,

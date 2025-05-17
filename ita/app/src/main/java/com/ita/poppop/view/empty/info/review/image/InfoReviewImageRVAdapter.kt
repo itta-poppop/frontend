@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.review.image
+package com.ita.poppop.view.empty.info.review.image
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

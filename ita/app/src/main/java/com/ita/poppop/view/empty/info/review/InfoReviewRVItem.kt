@@ -1,6 +1,6 @@
-package com.ita.poppop.view.main.info.review
+package com.ita.poppop.view.empty.info.review
 
-import com.ita.poppop.view.main.info.review.image.InfoReviewImageRVItem
+import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVItem
 
 data class InfoReviewRVItem(
     var itemId: Int,

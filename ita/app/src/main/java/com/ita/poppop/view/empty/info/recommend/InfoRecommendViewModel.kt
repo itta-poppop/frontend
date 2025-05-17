@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.recommend
+package com.ita.poppop.view.empty.info.recommend
 
 import android.util.Log
 import androidx.lifecycle.LiveData

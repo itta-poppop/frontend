@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.recommend
+package com.ita.poppop.view.empty.info.recommend
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

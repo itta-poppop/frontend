@@ -1,11 +1,11 @@
-package com.ita.poppop.view.main.info
+package com.ita.poppop.view.empty.info
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.ita.poppop.view.main.info.detail.InfoDetailFragment
-import com.ita.poppop.view.main.info.review.InfoReviewFragment
+import com.ita.poppop.view.empty.info.detail.InfoDetailFragment
+import com.ita.poppop.view.empty.info.review.InfoReviewFragment
 
 class InfoTabPageAdapter (
     fragmentManager: FragmentManager,

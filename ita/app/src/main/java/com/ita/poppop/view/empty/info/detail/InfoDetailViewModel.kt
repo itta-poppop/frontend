@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.detail
+package com.ita.poppop.view.empty.info.detail
 
 import androidx.lifecycle.ViewModel
 

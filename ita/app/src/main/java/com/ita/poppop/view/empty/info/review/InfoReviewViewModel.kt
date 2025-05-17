@@ -1,11 +1,11 @@
-package com.ita.poppop.view.main.info.review
+package com.ita.poppop.view.empty.info.review
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ita.poppop.R
-import com.ita.poppop.view.main.info.recommend.InfoRecommendRVItem
-import com.ita.poppop.view.main.info.review.image.InfoReviewImageRVItem
+import com.ita.poppop.view.empty.info.recommend.InfoRecommendRVItem
+import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVItem
 
 class InfoReviewViewModel : ViewModel() {
     private val _inforeviewList = MutableLiveData<MutableList<InfoReviewRVItem>>()

@@ -10,11 +10,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoBinding
-import com.ita.poppop.view.main.info.InfoTabPageAdapter
-import com.ita.poppop.view.main.info.recommend.InfoRecommendRVAdapter
-import com.ita.poppop.view.main.info.recommend.InfoRecommendViewModel
-import com.ita.poppop.view.main.info.story.InfoStoryRVAdapter
-import com.ita.poppop.view.main.info.story.InfoStoryViewModel
+import com.ita.poppop.view.empty.info.InfoTabPageAdapter
+import com.ita.poppop.view.empty.info.recommend.InfoRecommendRVAdapter
+import com.ita.poppop.view.empty.info.recommend.InfoRecommendViewModel
+import com.ita.poppop.view.empty.info.story.InfoStoryRVAdapter
+import com.ita.poppop.view.empty.info.story.InfoStoryViewModel
 
 
 class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {

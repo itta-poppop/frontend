@@ -1,4 +1,4 @@
-package com.ita.poppop.view.main.info.review
+package com.ita.poppop.view.empty.info.review
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider

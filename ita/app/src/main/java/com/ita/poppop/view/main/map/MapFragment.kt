@@ -1,9 +1,13 @@
 package com.ita.poppop.view.main.map
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,14 +16,25 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentMapBinding
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
+import com.naver.maps.map.util.MarkerIcons
 
-class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
+class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
 
     private lateinit var mapViewModel: MapViewModel
 
     private val mapRVAdapter by lazy {
         MapRVAdapter()
     }
+
+    private lateinit var locationSource: FusedLocationSource
+    private lateinit var naverMap: NaverMap
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -29,37 +44,50 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
             mapViewModel = ViewModelProvider(this@MapFragment).get(MapViewModel::class.java)
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+            val categoryBtn = listOf(btnMapWhole, btnMapPopup, btnMapExhibition, btnMapFestival)
 
-            binding.rvMap.apply {
+            categoryBtn.forEach { button ->
+                button.setOnClickListener {
+                    categoryBtn.forEach { it.isSelected = false }
+                    button.isSelected = true
+
+                    when (button.id) {
+                        R.id.btn_map_whole -> mapViewModel.selectCategoryBtn("전체")
+                        R.id.btn_map_popup -> mapViewModel.selectCategoryBtn("팝업스토어")
+                        R.id.btn_map_exhibition -> mapViewModel.selectCategoryBtn("전시")
+                        R.id.btn_map_festival -> mapViewModel.selectCategoryBtn("페스티벌")
+                    }
+                }
+            }
+            mapViewModel.selectCategoryBtn.observe(viewLifecycleOwner) { category ->
+                Toast.makeText(context, category, Toast.LENGTH_SHORT).show()
+            }
+
+            // 지도 설정
+            rvMap.apply {
                 layoutManager = linearLayoutManager
                 adapter = mapRVAdapter
 
                 val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
                 addItemDecoration(dividerItemDecoration)
             }
-
+            
             mapViewModel.getMap()
             mapViewModel.mapList.observe(viewLifecycleOwner, Observer { response ->
                 mapRVAdapter.submitList(response)
             })
+            
+            locationSource = FusedLocationSource(
+                requireActivity(),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
 
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as com.naver.maps.map.MapFragment
+            mapFragment.getMapAsync(this@MapFragment)
+            
+            // 바텀 시트
             setBottomSheet()
             setupBottomSheet()
-
-            // 지도 설정
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as com.naver.maps.map.MapFragment
-            mapFragment.getMapAsync { naverMap ->
-                val uiSettings = naverMap.uiSettings
-
-                /*uiSettings.logoGravity = Gravity.BOTTOM or Gravity.START
-                uiSettings.setLogoMargin(16, 16, 16, 16)*/
-
-                uiSettings.isZoomControlEnabled = false  // +/- 버튼
-                uiSettings.isCompassEnabled = false   // 나침반
-                uiSettings.isScaleBarEnabled = false
-                // uiSettings.isLocationButtonEnabled = true
-                uiSettings.isLogoClickEnabled = false
-            }
 
         }
     }
@@ -86,8 +114,8 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
                 val bottomSheetBehavior = BottomSheetBehavior.from(binding.nsvBottomSheet)
 
                 // dp 값을 픽셀로 변환
-                val topMarginPx = fragmentHeight - dpToPx(620)
-                val bottomMarginPx = dpToPx(253)
+                val topMarginPx = dpToPx(55)
+                val bottomMarginPx = dpToPx(48)
 
                 // 바텀시트 최소 높이
                 val peekHeight = bottomMarginPx
@@ -161,4 +189,99 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         return (dp * scale + 0.5f).toInt()
     }
 
+    // 위치 권한 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (
+            locationSource.onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+            )
+        ) {
+            if (!locationSource.isActivated) { // 권한 거부시 위치 안 보이도록
+                naverMap.locationTrackingMode = LocationTrackingMode.None
+            }
+            return
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    // 지도 로딩 후 자동 호출
+    override fun onMapReady(naverMap: NaverMap) {
+        this.naverMap = naverMap
+        naverMap.locationSource = locationSource
+
+        // 위치 권한 확인
+        checkLocationPermission()
+
+        // 실내지도 활성화
+        naverMap.isIndoorEnabled = true
+
+        // 마커 저장 리스트
+        val markers = mutableListOf<Marker>()
+        // 마커 위경도
+        val markerPositions = listOf(
+            LatLng(37.5670, 126.9780),
+            LatLng(37.5680, 126.9790),
+            LatLng(37.5660, 126.9770)
+        )
+        
+        // 마커 커스텀
+        markerPositions.forEach { position ->
+            val marker = Marker().apply {
+                this.position = position
+                this.map = naverMap
+                //this.icon = OverlayImage.fromResource(R.drawable.app_logo)
+                this.icon = MarkerIcons.BLACK
+                this.width = dpToPx(50)
+                this.height = dpToPx(63)
+            }
+            markers.add(marker)
+        }
+        
+        // 줌 일정 레벨 이하일 경우 마커 숨기기
+        naverMap.addOnCameraChangeListener { reason, animated ->
+            val zoom = naverMap.cameraPosition.zoom
+            val shouldShow = zoom >= 14.5
+            markers.forEach { it.isVisible = shouldShow }
+        }
+
+
+        val uiSettings = naverMap.uiSettings
+        uiSettings.isZoomControlEnabled = false // +/- 버튼
+        uiSettings.isCompassEnabled = false  // 나침반
+        uiSettings.isScaleBarEnabled = false
+        uiSettings.isLocationButtonEnabled = false // 현위치 버튼
+        uiSettings.isLogoClickEnabled = false
+
+        // 위치 권한 확인 후 위치 추적 모드 설정
+        binding.fabSearchTracking.setOnClickListener {
+            checkLocationPermission()
+        }
+    }
+
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // 권한 없으면 요청
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            // 권한 있으면 위치 추적 모드 켜기
+            naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        }
+    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
 }

@@ -10,6 +10,12 @@ class MapViewModel: ViewModel() {
     private val _mapList = MutableLiveData<MutableList<MapRVItem>>()
     val mapList: LiveData<MutableList<MapRVItem>> = _mapList
 
+    private val _selectCategoryBtn = MutableLiveData<String>()
+    val selectCategoryBtn: LiveData<String> = _selectCategoryBtn
+
+    fun selectCategoryBtn(category: String) {
+        _selectCategoryBtn.value = category
+    }
     fun getMap(){
         val list = mutableListOf<MapRVItem>()
         list.add(

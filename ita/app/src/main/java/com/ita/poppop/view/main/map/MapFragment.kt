@@ -68,8 +68,8 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
                 layoutManager = linearLayoutManager
                 adapter = mapRVAdapter
 
-                val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
-                addItemDecoration(dividerItemDecoration)
+                /*val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
+                addItemDecoration(dividerItemDecoration)*/
             }
             
             mapViewModel.getMap()

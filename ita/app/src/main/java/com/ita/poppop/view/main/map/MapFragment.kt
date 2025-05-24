@@ -44,7 +44,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             mapViewModel = ViewModelProvider(this@MapFragment).get(MapViewModel::class.java)
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-            val categoryBtn = listOf(btnMapWhole, btnMapPopup, btnMapExhibition, btnMapFestival)
+            /*val categoryBtn = listOf(btnMapWhole, btnMapPopup, btnMapExhibition, btnMapFestival)
 
             categoryBtn.forEach { button ->
                 button.setOnClickListener {
@@ -61,7 +61,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             }
             mapViewModel.selectCategoryBtn.observe(viewLifecycleOwner) { category ->
                 Toast.makeText(context, category, Toast.LENGTH_SHORT).show()
-            }
+            }*/
 
             // 지도 설정
             rvMap.apply {
@@ -136,8 +136,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
                     // 중간 상태(STATE_HALF_EXPANDED) 활성화
                     this.saveFlags = BottomSheetBehavior.SAVE_ALL
                 }
-
-
+                
                 // 슬라이드 중간 상태 사용
                 bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {

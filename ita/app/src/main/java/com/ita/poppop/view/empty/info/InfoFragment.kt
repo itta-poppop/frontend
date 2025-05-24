@@ -1,6 +1,7 @@
 package com.ita.poppop.view.main.home
 
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,40 +12,41 @@ import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoBinding
 import com.ita.poppop.view.empty.info.InfoTabPageAdapter
+import com.ita.poppop.view.empty.info.detail.InfoDetailFragment
 import com.ita.poppop.view.empty.info.recommend.InfoRecommendRVAdapter
 import com.ita.poppop.view.empty.info.recommend.InfoRecommendViewModel
+import com.ita.poppop.view.empty.info.review.InfoReviewFragment
 import com.ita.poppop.view.empty.info.story.InfoStoryRVAdapter
 import com.ita.poppop.view.empty.info.story.InfoStoryViewModel
+import com.ita.poppop.view.empty.notification.sub.NotificationNewsFragment
+import com.ita.poppop.view.empty.notification.sub.NotificationNoticeFragment
 
 
 class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
 
     private lateinit var infoStoryViewModel: InfoStoryViewModel
-    private lateinit var infoRecommendViewModel: InfoRecommendViewModel
 
     private val infoStoryRVAdapter by lazy {
         InfoStoryRVAdapter()
     }
-    private val infoRecommendRVAdapter by lazy {
-        InfoRecommendRVAdapter()
-    }
-
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager2: ViewPager2
-    private lateinit var tabpageAdapter: InfoTabPageAdapter
 
     override fun initView() {
         binding.apply {
+            
+            // 상단 제목 상태 제어
+            svInfo.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                val alpha = if (scrollY > 0) 1f else 0f
+                cvInfoTopbar.alpha = alpha
+            }
 
-            /*ibInfoBack.setOnClickListener {
+            ibInfoBack.setOnClickListener {
                 parentFragmentManager.popBackStack()
-            }*/
+            }
 
             infoStoryViewModel = ViewModelProvider(this@InfoFragment).get(InfoStoryViewModel::class.java)
-            infoRecommendViewModel = ViewModelProvider(this@InfoFragment).get(InfoRecommendViewModel::class.java)
 
             // 스토리
-            binding.rvInfoStory.apply {
+            rvInfoStory.apply {
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = infoStoryRVAdapter
             }
@@ -55,20 +57,8 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
                 //binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
             })
 
-            // 추천
-            binding.rvInfoRecommend.apply {
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = infoRecommendRVAdapter
-            }
-            infoRecommendViewModel.getInfoRecommend()
-            infoRecommendViewModel.inforecommendList.observe(viewLifecycleOwner, Observer { response ->
-                infoRecommendRVAdapter.submitList(response)
-
-                //binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
-            })
-
-            tabLayout = binding.icInfoTablayout.tlInfo
-            viewPager2 = binding.icInfoTablayout.vpInfo
+            /*tabLayout = icInfoTablayout.tlInfo
+            viewPager2 = icInfoTablayout.vpInfo
             tabpageAdapter = InfoTabPageAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
 
             viewPager2.adapter = tabpageAdapter
@@ -78,7 +68,28 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
                     1 -> "리뷰"
                     else -> ""
                 }
-            }.attach()
+            }.attach()*/
+            loadFragment(InfoDetailFragment())
+            icInfoTablayout.tlInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    when (tab?.position) {
+                        0 -> {loadFragment(InfoDetailFragment())}
+                        else -> {loadFragment(InfoReviewFragment())}
+                    }
+                }
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+            })
         }
+
+    }
+    private fun loadFragment(fragment: Fragment): Boolean {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fl_info_tab, fragment)
+            .commit()
+        return true
     }
 }

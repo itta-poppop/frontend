@@ -7,5 +7,18 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.ita.poppop.view.main.home.InfoFragment"
-        android:label="InfoFragment" />
+        android:label="InfoFragment" >
+        <action
+            android:id="@+id/action_infoFragment_to_infoReviewDetailFragment"
+            app:destination="@id/infoReviewDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/infoReviewDetailFragment"
+        android:name="com.ita.poppop.view.empty.info.review.detail.InfoReviewDetailFragment"
+        android:label="InfoReviewDetailFragment">
+        <argument
+            android:name="review"
+            app:argType="com.ita.poppop.view.empty.info.review.InfoReviewRVItem" />
+        </fragment>
 </navigation>

@@ -13,6 +13,16 @@ import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVAdapter
 class InfoReviewRVAdapter: ListAdapter<InfoReviewRVItem, InfoReviewRVAdapter.InfoReviewViewHolder>(
 InfoReviewDiffutillCallback()
 ) {
+
+    interface InfoReviewItemClickListener{
+        fun onItemClick(position: Int)
+    }
+    private lateinit var infoReviewItemClickListener : InfoReviewItemClickListener
+
+    fun setInfoReviewItemClickListener(itemClickListener: InfoReviewItemClickListener){
+        infoReviewItemClickListener = itemClickListener
+    }
+
     class InfoReviewViewHolder(val binding: ItemInfoReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: InfoReviewRVItem) {
             binding.apply {
@@ -25,6 +35,7 @@ InfoReviewDiffutillCallback()
 
                 // rvadapter 연결
                 val imgAdapter = InfoReviewImageRVAdapter()
+
                 imgAdapter.submitList(item.reviewImage)
 
                 rvReviewImage.apply {
@@ -58,5 +69,8 @@ InfoReviewDiffutillCallback()
     override fun onBindViewHolder(holder: InfoReviewViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            infoReviewItemClickListener.onItemClick(position)
+        }
     }
 }

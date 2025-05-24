@@ -1,7 +1,10 @@
 package com.ita.poppop.view.empty.info.review
 
+import android.os.Parcelable
 import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVItem
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class InfoReviewRVItem(
     var itemId: Int,
     var profileImage: Int,
@@ -11,4 +14,4 @@ data class InfoReviewRVItem(
     var hearts: Int,
     var comments: Int,
     var content: String
-)
+) : Parcelable

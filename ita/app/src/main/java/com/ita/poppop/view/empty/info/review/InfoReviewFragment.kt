@@ -44,12 +44,7 @@ class InfoReviewFragment: BaseFragment<FragmentInfoReviewBinding>(R.layout.fragm
 
             infoReviewRVAdapter.setInfoReviewItemClickListener(object : InfoReviewRVAdapter.InfoReviewItemClickListener{
                 override fun onItemClick(position: Int) {
-                    Log.d("Fragment", "current destination: ${findNavController().currentDestination?.label}")
 
-                    //val action = InfoFragmentDirections.actionInfoFragmentToInfoReviewFragment()
-                    //findNavController().navigate(action)
-
-                    Log.d("Fragment", "current destination: ${findNavController().currentDestination?.label}")
                     val selectedReview = infoReviewRVAdapter.currentList[position]
                     val parentNavController = requireParentFragment().findNavController()
                     val action = InfoFragmentDirections.actionInfoFragmentToInfoReviewDetailFragment(selectedReview)

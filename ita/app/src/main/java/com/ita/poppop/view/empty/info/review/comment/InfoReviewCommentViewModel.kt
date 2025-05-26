@@ -20,7 +20,6 @@ class InfoReviewCommentViewModel :ViewModel() {
                 "wild_zeal",
                 "6일 전",
                 "헉 ㅠㅠ 너무 가고 싶어요ㅠ",
-                4,
                 4
             )
         )
@@ -31,7 +30,6 @@ class InfoReviewCommentViewModel :ViewModel() {
                 "skyline_7",
                 "6일 전",
                 "헉 ㅠㅠ 너무 가고 싶어요ㅠ",
-                2,
                 null
             )
         )
@@ -42,7 +40,6 @@ class InfoReviewCommentViewModel :ViewModel() {
                 "wild_zeal",
                 "6일 전",
                 "헉 ㅠㅠ 너무 가고 싶어요ㅠ",
-                3,
                 3
             )
         )

@@ -4,18 +4,30 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ita.poppop.databinding.ItemInfoReviewBinding
 import com.ita.poppop.databinding.ItemInfoReviewCommentBinding
+import com.ita.poppop.view.empty.info.review.InfoReviewRVAdapter
 import com.ita.poppop.view.empty.info.review.InfoReviewRVItem
 import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVAdapter
+import com.ita.poppop.view.main.home.InfoFragmentDirections
 
 class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoReviewCommentRVAdapter.InfoReviewCommentViewHolder>(
     InfoReviewCommentDiffutillCallback()
 ) {
+
+    interface InfoReviewCommentItemClickListener{
+        fun onArrowClick(position: Int)
+    }
+    private lateinit var infoReviewCommentItemClickListener : InfoReviewCommentItemClickListener
+
+    fun setInfoReviewCommentItemClickListener(itemClickListener: InfoReviewCommentItemClickListener){
+        infoReviewCommentItemClickListener = itemClickListener
+    }
 
     class InfoReviewCommentViewHolder(val binding: ItemInfoReviewCommentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: InfoReviewCommentRVItem) {
@@ -24,7 +36,6 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
                 tvCommentUsername.text = item.username
                 tvCommentTime.text = item.time
                 tvCommentContent.text = item.content
-                tvCommentHeartNum.text = item.hearts.toString()
                 tvCommentReplyNum.text = item.reply.toString()
 
                 // 답글 개수 0일시, 레이아웃 숨김 처리
@@ -33,7 +44,6 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
                 } else {
                     binding.clInfoReviewCommentReply.visibility = View.VISIBLE
                 }
-
             }
         }
     }
@@ -61,5 +71,8 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
     override fun onBindViewHolder(holder: InfoReviewCommentViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.binding.clInfoReviewCommentReply.setOnClickListener {
+            infoReviewCommentItemClickListener.onArrowClick(position)
+        }
     }
 }

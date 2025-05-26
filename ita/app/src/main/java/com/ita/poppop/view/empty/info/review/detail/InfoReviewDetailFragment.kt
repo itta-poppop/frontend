@@ -1,8 +1,9 @@
 package com.ita.poppop.view.empty.info.review.detail
 
-import android.view.View
+import android.graphics.Rect
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
@@ -20,6 +21,7 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
     }
 
     override fun initView() {
+
         binding.apply {
 
             ivReviewDetailBack.setOnClickListener {
@@ -50,6 +52,37 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
                 infoReviewCommentRVAdapter.submitList(response)*/
 
             })
+            
+            // 답글 화살표 클릭 시
+            infoReviewCommentRVAdapter.setInfoReviewCommentItemClickListener(object : InfoReviewCommentRVAdapter.InfoReviewCommentItemClickListener{
+                override fun onArrowClick(position: Int) {
+                    val selectedArrow = infoReviewCommentRVAdapter.currentList[position]
+                    val parentNavController = requireParentFragment().findNavController()
+                    val action = InfoReviewDetailFragmentDirections.actionInfoReviewDetailFragmentToInfoReviewDetailReplyFragment(selectedArrow)
+                    parentNavController.navigate(action)
+                }
+            })
+            
+            handleCommentUploadArea()
+        }
+    }
+
+    // 댓글 게시 입력창 위치 조정
+    private fun handleCommentUploadArea() {
+        val rootView = binding.root
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            rootView.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = rootView.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+
+            val isKeyboardVisible = keypadHeight > screenHeight * 0.15
+
+            binding.clInfoReviewUploadComment.translationY = if (isKeyboardVisible) {
+                -keypadHeight.toFloat()
+            } else {
+                0f
+            }
         }
     }
 }

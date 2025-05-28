@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 
 abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int)
     : Fragment() {
@@ -31,8 +35,31 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = this@BaseFragment
+
         initView()
         super.onViewCreated(view, savedInstanceState)
+    }
+    open fun setupWindowInsets(){
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                view.paddingRight,
+                systemBarInsets.bottom
+            )
+            insets
+        }
+    }
+    open fun handleBackNavigation() {
+        when {
+            hasChildFragments() -> childFragmentManager.popBackStack()
+            else -> findNavController(requireParentFragment()).popBackStack()
+        }
+    }
+
+    open fun hasChildFragments(): Boolean {
+        return childFragmentManager.backStackEntryCount > 0
     }
 
     abstract fun initView()

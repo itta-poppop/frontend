@@ -75,7 +75,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tv_waiting_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -97,10 +97,10 @@
                     android:layout_marginTop="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" >
+                    app:layout_constraintTop_toBottomOf="@+id/tv_waiting_title" >
 
                     <TextView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/tv_waiting_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="팝업스토어"
@@ -123,11 +123,11 @@
                         android:src="@drawable/_home_direction_background"
                         app:tint="@color/gray_600"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintStart_toEndOf="@+id/tv_waiting_type"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tv_waiting_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:letterSpacing="-0.03"

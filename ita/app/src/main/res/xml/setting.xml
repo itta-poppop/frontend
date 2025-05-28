@@ -10,8 +10,8 @@
         app:key="set_noti"
         app:title="알림 설정"
         app:iconSpaceReserved="false"
-        app:layout="@layout/preference_with_end_icon"
-        android:fragment="com.ita.poppop.view.empty.setting.sub.NotificationSettingFragment"/>
+        app:layout="@layout/preference_with_end_icon"/>
+
 
     <com.ita.poppop.util.preference.EndContentPreference
         app:key="version"
@@ -22,6 +22,11 @@
     <com.ita.poppop.util.preference.EndNonPreference
         app:key="logout"
         app:title="로그아웃"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_with_end_non"/>
+    <com.ita.poppop.util.preference.EndNonPreference
+        app:key="withdraw"
+        app:title="탈퇴하기"
         app:iconSpaceReserved="false"
         app:layout="@layout/preference_with_end_non"/>
 </PreferenceScreen>

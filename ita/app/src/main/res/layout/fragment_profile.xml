@@ -30,7 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_14"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="@dimen/text_8"
                 android:text="@string/profile_frag_title"
+                android:textColor="@color/gray_900"
                 android:textSize="@dimen/text_16" />
 
             <ImageView

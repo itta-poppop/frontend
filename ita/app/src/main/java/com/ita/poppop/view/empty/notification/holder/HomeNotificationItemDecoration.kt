@@ -1,8 +1,5 @@
 package com.ita.poppop.view.empty.notification.holder
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -7,37 +7,53 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentHomeBinding
 import com.ita.poppop.databinding.FragmentProfileBinding
+import com.ita.poppop.util.SwipeHelper
+import com.ita.poppop.view.empty.upcoming.holder.UpcomingAdapter
+import com.ita.poppop.view.empty.upcoming.holder.UpcomingItemDecoration
 import com.ita.poppop.view.main.MainFragmentDirections
 import com.ita.poppop.view.main.profile.holder.ProfileReviewAdapter
 import com.ita.poppop.view.main.profile.holder.ProfileReviewItemDecoration
 
-class ProfileFragment: BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+
     override fun initView() {
-        binding.apply {
+        setupProfileReviewRecyclerView()
+        setupClickListeners()
+    }
 
-            val myList = mutableListOf(0,1,2,3,4,5)
+    private fun setupClickListeners() = with(binding) {
+        txEditProfile.setOnClickListener { navigateToEditProfile() }
+        btnSettings.setOnClickListener { navigateToSettings() }
+    }
 
-            val historyAdapter = ProfileReviewAdapter(myList)
-            rvProfileMyReview.addItemDecoration(ProfileReviewItemDecoration())
-            rvProfileMyReview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-            rvProfileMyReview.adapter = historyAdapter
+    private fun navigateToEditProfile() {
+        val navController = requireActivity().findNavController(R.id.fcv_main_activity_container)
+        val action = MainFragmentDirections.actionMainFragmentToNaviProfileEdit()
+        navController.navigate(action)
+    }
 
-            txEditProfile.setOnClickListener {
-                val parentNavController = requireActivity().findNavController(R.id.fcv_main_activity_container)
-                val action = MainFragmentDirections.actionMainFragmentToNaviProfileEdit()
-                parentNavController.navigate(action)
-            }
-            btnSettings.setOnClickListener {
-                val parentNavController = requireActivity().findNavController(R.id.fcv_main_activity_container)
-                val action = MainFragmentDirections.actionMainFragmentToNaviSetting()
-                parentNavController.navigate(action)
-            }
+    private fun navigateToSettings() {
+        val navController = requireActivity().findNavController(R.id.fcv_main_activity_container)
+        val action = MainFragmentDirections.actionMainFragmentToNaviSetting()
+        navController.navigate(action)
+    }
 
+    private fun setupProfileReviewRecyclerView() {
+        val profileReviewList = (0..9).toMutableList()
+        val adapter = ProfileReviewAdapter(profileReviewList)
+
+        with(binding.rvProfileMyReview) {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = adapter
+            addItemDecoration(ProfileReviewItemDecoration())
+
+            ItemTouchHelper(SwipeHelper()).attachToRecyclerView(this)
         }
     }
 }

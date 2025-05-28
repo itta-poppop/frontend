@@ -2,11 +2,9 @@ package com.ita.poppop.view.main.home.waiting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.ita.poppop.R
 import com.ita.poppop.databinding.ItemHomeWaitingLayoutBinding
-import com.ita.poppop.view.main.MainFragmentDirections
+
 
 class HomeWaitingAdapter(
     private var items : MutableList<Int>,
@@ -21,7 +19,7 @@ class HomeWaitingAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HomeWaitingViewHolder).bind()
+        (holder as HomeWaitingViewHolder).bind(items[position])
         holder.itemView.setOnClickListener {
             val postItem = items[position]
         }

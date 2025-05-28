@@ -44,4 +44,7 @@
 
     <!-- SettingFragment -->
     <string name="setting_frag_title">설정</string>
+
+    <!-- UpcomingFragment -->
+    <string name="upcoming_frag_title">오픈 예정팝업</string>
 </resources>

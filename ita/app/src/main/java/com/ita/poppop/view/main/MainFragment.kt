@@ -16,8 +16,6 @@ import com.ita.poppop.databinding.FragmentMainBinding
 class MainFragment: BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun initView() {
         binding.apply {
-
-
             // FragmentContainerView에 동적으로 navi 연결
             val navHostFragment = childFragmentManager
                 .findFragmentById(R.id.fcv_main_fragment_container) as NavHostFragment

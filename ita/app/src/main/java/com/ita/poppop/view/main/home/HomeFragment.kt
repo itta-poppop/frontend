@@ -52,7 +52,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         setupClickListeners()
 
     }
-
     private fun setupAnimations() {
         fabOpen = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_close)

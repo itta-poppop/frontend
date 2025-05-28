@@ -6,6 +6,7 @@ import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentLoginBinding
 
+
 class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     override fun initView() {
         setupWindowInsets()

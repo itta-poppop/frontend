@@ -1,11 +1,13 @@
 package com.ita.poppop.view.empty.notification.holder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ita.poppop.databinding.ItemHomeNotificationLayoutBinding
 
 class HomeNotificationAdapter(
+    private var activity :Activity,
     private var items : MutableList<Int>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     init {
@@ -19,6 +21,14 @@ class HomeNotificationAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as HomeNotificationViewHolder).bind()
+
+        // 나중 참고
+
+        holder.itemView.setOnClickListener {
+//            val parentNavController = activity.findNavController(R.id.fcv_main_activity_container)
+//            val action =HomeNotificationFragmentDirections.actionHomeNotificationFragmentToEditProfileFragment2()
+//            parentNavController.navigate(action)
+        }
     }
 
 

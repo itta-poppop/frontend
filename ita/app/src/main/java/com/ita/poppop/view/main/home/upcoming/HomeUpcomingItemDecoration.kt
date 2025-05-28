@@ -5,25 +5,36 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class HomeUpcomingItemDecoration : RecyclerView.ItemDecoration() {
+
+    companion object {
+        private const val SPACING_UNIT = 3.0f
+        private const val TOP_SPACING_DP = 8
+        private const val SIDE_SPACING_DP = 6
+        private const val COLUMN_COUNT = 2
+    }
+
     override fun getItemOffsets(
         outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
     ) {
-
         val position = parent.getChildAdapterPosition(view)
-        val column = position % 2 + 1      // 1부터 시작
+        val column = (position % COLUMN_COUNT) + 1
 
-        /** 첫번째 행(row-1) 이후부터 있는 아이템에만 상단에 [space] 만큼의 여백을 추가한다. 즉, 첫번째 행에 있는 아이템에는 상단에 여백을 주지 않는다.*/
-        if (position >= 2){
-            outRect.top = (16 * 3.0f).toInt()
-        }
-        /** 첫번째 열이 아닌(None Column-1) 아이템들만 좌측에 [space] 만큼의 여백을 추가한다. 즉, 첫번째 열에 있는 아이템에는 좌측에 여백을 주지 않는다. */
-        if (column != 1){
-            outRect.left = (6 * 3.0f).toInt()
+        // 상단 여백 (첫 번째 행 제외)
+        if (position >= COLUMN_COUNT) {
+            outRect.top = (TOP_SPACING_DP * SPACING_UNIT).toInt()
         }
 
-        outRect.bottom = (16 * 3.0f).toInt()
-        if (position % 2 == 0) {
-            outRect.right = (6 * 3.0f).toInt()
+        // 좌측 여백 (첫 번째 열 제외)
+        if (column != 1) {
+            outRect.left = (SIDE_SPACING_DP * SPACING_UNIT).toInt()
+        }
+
+        // 하단 여백은 항상
+        outRect.bottom = (TOP_SPACING_DP * SPACING_UNIT).toInt()
+
+        // 우측 여백 (짝수 번째 아이템만)
+        if (position % COLUMN_COUNT == 0) {
+            outRect.right = (SIDE_SPACING_DP * SPACING_UNIT).toInt()
         }
     }
 }

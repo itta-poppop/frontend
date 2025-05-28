@@ -73,4 +73,14 @@ dependencies {
     //설정용 프리퍼런스
     implementation("androidx.preference:preference-ktx:1.2.1")
 
+    //okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // 코루틴
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // 글라이드
+    implementation("com.github.bumptech.glide:glide:4.13.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
+
 }

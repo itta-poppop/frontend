@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/homeNotificationFragment"
-        android:name="com.ita.poppop.view.empty.notification.HomeNotificationFragment"
+        android:name="com.ita.poppop.view.empty.notification.NotificationFragment"
         android:label="HomeNotificationFragment" />
 </navigation>

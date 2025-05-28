@@ -1,6 +1,7 @@
 package com.ita.poppop.base
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layoutRes: Int)
     protected lateinit var binding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         // 인플레이션 방식 변경

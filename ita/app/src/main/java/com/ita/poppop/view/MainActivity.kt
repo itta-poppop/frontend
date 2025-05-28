@@ -21,12 +21,11 @@ import com.ita.poppop.R
 import com.ita.poppop.base.BaseActivity
 import com.ita.poppop.databinding.ActivityMainBinding
 
+
 class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding.apply {
-            // 확장된 화면 대응
 
             //내비게이션 바(Navigation Bar)의 명암 대비 설정을 비활성화 -> 투명화
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

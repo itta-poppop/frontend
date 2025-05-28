@@ -13,6 +13,7 @@ import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentMainBinding
 
+
 class MainFragment: BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun initView() {
         binding.apply {

@@ -74,4 +74,6 @@ dependencies {
     //설정용 프리퍼런스
     implementation("androidx.preference:preference-ktx:1.2.1")
 
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+
 }

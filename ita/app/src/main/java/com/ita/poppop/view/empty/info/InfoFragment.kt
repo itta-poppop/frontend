@@ -1,9 +1,12 @@
 package com.ita.poppop.view.main.home
 
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -11,7 +14,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoBinding
-import com.ita.poppop.view.empty.info.InfoTabPageAdapter
 import com.ita.poppop.view.empty.info.detail.InfoDetailFragment
 import com.ita.poppop.view.empty.info.recommend.InfoRecommendRVAdapter
 import com.ita.poppop.view.empty.info.recommend.InfoRecommendViewModel
@@ -20,6 +22,7 @@ import com.ita.poppop.view.empty.info.story.InfoStoryRVAdapter
 import com.ita.poppop.view.empty.info.story.InfoStoryViewModel
 import com.ita.poppop.view.empty.notification.sub.NotificationNewsFragment
 import com.ita.poppop.view.empty.notification.sub.NotificationNoticeFragment
+import com.ita.poppop.view.main.MainFragmentDirections
 
 
 class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
@@ -29,6 +32,8 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
     private val infoStoryRVAdapter by lazy {
         InfoStoryRVAdapter()
     }
+
+    private var isFavorite = false
 
     override fun initView() {
         binding.apply {
@@ -41,6 +46,28 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
 
             ibInfoBack.setOnClickListener {
                 parentFragmentManager.popBackStack()
+            }
+
+            acbFavorites.setOnClickListener {
+                isFavorite = !isFavorite
+
+                val icStar = if (isFavorite) {
+                    R.drawable.info_favorites_star_icon_outlined
+                } else {
+                    R.drawable.info_favorites_star_icon_filled
+                }
+
+                // drawable 교체
+                acbFavorites.setCompoundDrawablesWithIntrinsicBounds(
+                    ContextCompat.getDrawable(requireContext(), icStar),
+                    null, null, null
+                )
+            }
+
+            acbUploadReview.setOnClickListener{
+                val parentNavController = requireParentFragment().findNavController()
+                val action = InfoFragmentDirections.actionInfoFragmentToUploadFragment()
+                parentNavController.navigate(action)
             }
 
             infoStoryViewModel = ViewModelProvider(this@InfoFragment).get(InfoStoryViewModel::class.java)
@@ -57,18 +84,7 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
                 //binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
             })
 
-            /*tabLayout = icInfoTablayout.tlInfo
-            viewPager2 = icInfoTablayout.vpInfo
-            tabpageAdapter = InfoTabPageAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
-
-            viewPager2.adapter = tabpageAdapter
-            TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-                tab.text = when (position) {
-                    0 -> "팝업 정보"
-                    1 -> "리뷰"
-                    else -> ""
-                }
-            }.attach()*/
+            // 탭 화면
             loadFragment(InfoDetailFragment())
             icInfoTablayout.tlInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {

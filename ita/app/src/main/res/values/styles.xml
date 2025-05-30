@@ -9,7 +9,7 @@
         <item name="tabIndicatorGravity">bottom</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabIndicatorAnimationMode">linear</item>
-        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabIndicatorHeight">3dp</item>
         <item name="tabRippleColor">@android:color/transparent</item>
         <item name="tabPaddingBottom">3dp</item>
         <item name="tabPaddingStart">0dp</item>

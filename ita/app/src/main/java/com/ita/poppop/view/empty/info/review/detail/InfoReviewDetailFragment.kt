@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoReviewDetailBinding
+import com.ita.poppop.util.bottomsheet.UploadBottomSheet
+import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentDeleteBottomSheet
 import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentRVAdapter
 import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentViewModel
 
@@ -26,6 +28,10 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
 
             ivReviewDetailBack.setOnClickListener {
                 parentFragmentManager.popBackStack()
+            }
+
+            ivInfoReviewDetailDot.setOnClickListener {
+                showInfoReviewDeleteBottomSheet()
             }
 
             infoReviewCommentViewModel = ViewModelProvider(this@InfoReviewDetailFragment).get(InfoReviewCommentViewModel::class.java)
@@ -52,19 +58,27 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
                 infoReviewCommentRVAdapter.submitList(response)*/
 
             })
-            
-            // 답글 화살표 클릭 시
+
             infoReviewCommentRVAdapter.setInfoReviewCommentItemClickListener(object : InfoReviewCommentRVAdapter.InfoReviewCommentItemClickListener{
+                // 답글 화살표 클릭 시
                 override fun onArrowClick(position: Int) {
                     val selectedArrow = infoReviewCommentRVAdapter.currentList[position]
                     val parentNavController = requireParentFragment().findNavController()
                     val action = InfoReviewDetailFragmentDirections.actionInfoReviewDetailFragmentToInfoReviewDetailReplyFragment(selectedArrow)
                     parentNavController.navigate(action)
                 }
+                // 댓글 점 클릭 시
+                override fun onDotClick(position: Int) {
+                    InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete comment")
+                }
             })
-            
+
             handleCommentUploadArea()
         }
+    }
+
+    private fun showInfoReviewDeleteBottomSheet() {
+        InfoReviewDeleteBottomSheet().show(parentFragmentManager, "delete review")
     }
 
     // 댓글 게시 입력창 위치 조정

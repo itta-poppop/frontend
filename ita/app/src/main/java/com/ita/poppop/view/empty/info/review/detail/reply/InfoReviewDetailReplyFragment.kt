@@ -4,14 +4,15 @@ package com.ita.poppop.view.empty.info.review.detail.reply
 import android.graphics.Rect
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoReviewDetailReplyBinding
-import com.ita.poppop.view.empty.info.review.InfoReviewRVAdapter
-import com.ita.poppop.view.empty.info.review.InfoReviewViewModel
-import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentViewModel
+import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentDeleteBottomSheet
+import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentRVAdapter
+import com.ita.poppop.view.empty.info.review.detail.InfoReviewDeleteBottomSheet
+import com.ita.poppop.view.empty.info.review.detail.InfoReviewDetailFragmentDirections
 
 class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReplyBinding>(R.layout.fragment_info_review_detail_reply){
 
@@ -25,8 +26,14 @@ class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReply
 
         binding.apply {
 
+            // 뒤로 가기
             ivReviewDetailReplyBack.setOnClickListener {
                 parentFragmentManager.popBackStack()
+            }
+
+            // 댓글 삭제 신고 바텀 시트
+            ivInfoReviewCommentDot.setOnClickListener {
+                showInfoReviewCommentDeleteBottomSheet()
             }
 
             infoReviewDetailReplyViewModel = ViewModelProvider(this@InfoReviewDetailReplyFragment).get(
@@ -46,11 +53,22 @@ class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReply
             tvWriteReply.setOnClickListener {
                 editUploadCommentReply.requestFocus()
                 // 키보드 열기
-                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
-                imm.showSoftInput(editUploadCommentReply, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+                val keyboard = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                keyboard.showSoftInput(editUploadCommentReply, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
             }
+
+            infoReviewDetailReplyRVAdapter.setInfoReviewDetailReplyItemClickListener(object : InfoReviewDetailReplyRVAdapter.InfoReviewDetailReplyItemClickListener{
+                // 답글 점 클릭 시
+                override fun onDotClick(position: Int) {
+                    InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete reply")
+                }
+            })
             handleReplyUploadArea()
         }
+    }
+
+    private fun showInfoReviewCommentDeleteBottomSheet() {
+        InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete comment")
     }
 
     // 대댓글 게시 입력창 위치 조정

@@ -12,6 +12,7 @@
             android:id="@+id/tl_info"
             android:layout_width="match_parent"
             android:layout_height="29dp"
+            android:background="@drawable/background_line_2"
             app:tabTextAppearance="@style/InfoCustomTabTextAppearance"
             style="@style/InfoCustomTabLayoutStyle"
             app:layout_constraintTop_toTopOf="parent">
@@ -19,12 +20,24 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="팝업 정보"/>
+                android:text="팝업 정보"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="8sp"
+                android:gravity="center_horizontal"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="리뷰"/>
+                android:text="리뷰"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="8sp"
+                android:gravity="center_horizontal"/>
 
         </com.google.android.material.tabs.TabLayout>
 

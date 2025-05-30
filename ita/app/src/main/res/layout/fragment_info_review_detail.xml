@@ -21,11 +21,11 @@
 
         <ImageView
             android:id="@+id/iv_review_detail_back"
-            android:layout_width="20dp"
-            android:layout_height="15dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="25dp"
-            android:src="@drawable/info_back_icon"
+            android:src="@drawable/chevron_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/statusBarSpaceView2" />
 

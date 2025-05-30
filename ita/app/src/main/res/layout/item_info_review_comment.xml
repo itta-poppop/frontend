@@ -124,9 +124,10 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="2dp"
-                android:src="@drawable/info_review_comment_reply_icon"
+                android:src="@drawable/chevron_right"
+                app:tint="@color/gray_600"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_comment_reply_l" />
+                app:layout_constraintStart_toEndOf="@+id/tv_comment_reply_l"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

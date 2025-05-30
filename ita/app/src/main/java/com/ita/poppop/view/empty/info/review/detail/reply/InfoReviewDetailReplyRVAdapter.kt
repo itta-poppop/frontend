@@ -8,10 +8,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ita.poppop.databinding.ItemInfoReviewDetailReplyBinding
 import com.ita.poppop.view.empty.info.review.InfoReviewDetailReplyRVItem
+import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentDeleteBottomSheet
+import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentRVAdapter.InfoReviewCommentItemClickListener
 
 class InfoReviewDetailReplyRVAdapter: ListAdapter<InfoReviewDetailReplyRVItem, InfoReviewDetailReplyRVAdapter.InfoReviewDetailReplyViewHolder>(
     InfoReviewDetailReplyDiffutillCallback()
 ) {
+
+    interface InfoReviewDetailReplyItemClickListener{
+        fun onDotClick(position: Int)
+    }
+
+    private lateinit var infoReviewDetailReplyItemClickListener : InfoReviewDetailReplyItemClickListener
+
+    fun setInfoReviewDetailReplyItemClickListener(itemClickListener: InfoReviewDetailReplyItemClickListener){
+        infoReviewDetailReplyItemClickListener = itemClickListener
+    }
 
     class InfoReviewDetailReplyViewHolder(val binding: ItemInfoReviewDetailReplyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: InfoReviewDetailReplyRVItem) {
@@ -21,6 +33,9 @@ class InfoReviewDetailReplyRVAdapter: ListAdapter<InfoReviewDetailReplyRVItem, I
                 tvReplyTime.text = item.time
                 tvReplyContent.text = item.reply
 
+                ivInfoReviewReplyDot.setOnClickListener{
+                    InfoReviewCommentDeleteBottomSheet()
+                }
             }
         }
     }
@@ -48,5 +63,8 @@ class InfoReviewDetailReplyRVAdapter: ListAdapter<InfoReviewDetailReplyRVItem, I
     override fun onBindViewHolder(holder: InfoReviewDetailReplyViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.binding.ivInfoReviewReplyDot.setOnClickListener {
+            infoReviewDetailReplyItemClickListener.onDotClick(position)
+        }
     }
 }

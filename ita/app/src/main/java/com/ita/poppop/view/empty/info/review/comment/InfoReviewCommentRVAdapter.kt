@@ -13,6 +13,7 @@ import com.ita.poppop.databinding.ItemInfoReviewBinding
 import com.ita.poppop.databinding.ItemInfoReviewCommentBinding
 import com.ita.poppop.view.empty.info.review.InfoReviewRVAdapter
 import com.ita.poppop.view.empty.info.review.InfoReviewRVItem
+import com.ita.poppop.view.empty.info.review.detail.InfoReviewDeleteBottomSheet
 import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVAdapter
 import com.ita.poppop.view.main.home.InfoFragmentDirections
 
@@ -22,6 +23,7 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
 
     interface InfoReviewCommentItemClickListener{
         fun onArrowClick(position: Int)
+        fun onDotClick(position: Int)
     }
     private lateinit var infoReviewCommentItemClickListener : InfoReviewCommentItemClickListener
 
@@ -44,6 +46,7 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
                 } else {
                     binding.clInfoReviewCommentReply.visibility = View.VISIBLE
                 }
+
             }
         }
     }
@@ -73,6 +76,9 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
         holder.bind(item)
         holder.binding.clInfoReviewCommentReply.setOnClickListener {
             infoReviewCommentItemClickListener.onArrowClick(position)
+        }
+        holder.binding.ivInfoReviewCommentDot.setOnClickListener {
+            infoReviewCommentItemClickListener.onDotClick(position)
         }
     }
 }

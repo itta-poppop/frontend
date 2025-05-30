@@ -27,14 +27,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="25dp"
-                android:paddingStart="80dp"
-                android:paddingEnd="30dp"
-                android:text="제목제목제목제목제목제목제제목제목제제목제목제제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목"
-                android:textSize="20dp"
+                android:paddingStart="68dp"
+                android:paddingEnd="52dp"
+                android:text="TV 애니메이션 【최애의 아이】展 거짓말과 아이 / 빛과 그림자"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:textColor="@color/gray_900"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="8sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:gravity="center"
-                android:textColor="@color/black"/>
+                android:gravity="center"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -47,7 +51,7 @@
                 android:background="@drawable/info_back_btn_background"
                 android:contentDescription="backbtn"
                 android:elevation="10dp"
-                android:src="@drawable/info_back_icon"
+                android:src="@drawable/chevron_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,18 +94,24 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/acb_favorites"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginRight="@dimen/margin_16"
                         android:layout_marginBottom="@dimen/margin_20"
                         android:background="@drawable/info_back_btn_background"
-                        android:drawableStart="@drawable/main_btn_favorites_icon"
+                        android:drawableStart="@drawable/info_favorites_star_icon_outlined"
                         android:drawablePadding="6dp"
                         android:paddingHorizontal="@dimen/padding_13"
                         android:paddingVertical="4dp"
                         android:text="@string/main_btn_favorites_title"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textStyle="normal"
                         android:textSize="15sp"
-                        android:textStyle="bold"
+                        android:textColor="@color/gray_900"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="7.5sp"
                         app:layout_constraintBottom_toBottomOf="@+id/cl_info_image"
                         app:layout_constraintEnd_toEndOf="@+id/cl_info_image" />
 
@@ -123,8 +133,11 @@
                         android:layout_height="wrap_content"
                         android:text="TV 애니메이션 [최애의 아이]展 거짓말과 아이 / 빛과 그림자"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_20"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textStyle="normal"
+                        android:textSize="20sp"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="10sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -238,6 +251,7 @@
             app:layout_constraintTop_toTopOf="@+id/cl_info_upload_review" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acb_upload_review"
             android:layout_width="328dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"

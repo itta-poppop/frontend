@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_infoFragment_to_infoReviewDetailFragment"
             app:destination="@id/infoReviewDetailFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
     </fragment>
 
     <fragment
@@ -34,4 +37,8 @@
             android:name="comment"
             app:argType="com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentRVItem" />
     </fragment>
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.ita.poppop.view.empty.upload.UploadFragment"
+        android:label="UploadFragment" />
 </navigation>

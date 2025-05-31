@@ -5,6 +5,6 @@
     app:startDestination="@id/homeSearchFragment">
     <fragment
         android:id="@+id/homeSearchFragment"
-        android:name="com.ita.poppop.view.empty.search.HomeSearchFragment"
+        android:name="com.ita.poppop.view.empty.search.SearchFragment"
         android:label="HomeSearchFragment" />
 </navigation>

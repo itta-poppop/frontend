@@ -18,6 +18,9 @@ import kotlin.math.sqrt
  * 특정 영역만 터치 이벤트를 통과시키고 나머지 영역은 Dim 처리합니다
  */
 class DimView(context: Context) : View(context) {
+
+    var onDimAreaClicked: (() -> Unit)? = null
+
     private val path = Path()
     private val paint = Paint().apply {
         color = Color.parseColor("#88000000") // 반투명 검정색
@@ -33,7 +36,6 @@ class DimView(context: Context) : View(context) {
     // 원형 영역을 표현하는 데이터 클래스
     data class CircleArea(val centerX: Float, val centerY: Float, val radius: Float) {
         fun contains(x: Float, y: Float): Boolean {
-            Log.d("checkDim","CircleArea[ centerX : ${centerX},centerY : ${centerY},radius : ${radius} ]")
             val distance = sqrt((x - centerX).pow(2) + (y - centerY).pow(2))
             return distance <= radius
         }
@@ -84,12 +86,10 @@ class DimView(context: Context) : View(context) {
         for (circle in circleAreas) {
             path.addCircle(circle.centerX, circle.centerY, circle.radius, Path.Direction.CCW)
         }
-//
         // 둥근 사각형 영역에 구멍 뚫기
         for (roundRect in roundRectAreas) {
             path.addRoundRect(roundRect.rectF, roundRect.cornerRadius, roundRect.cornerRadius, Path.Direction.CCW)
         }
-//
         canvas.drawPath(path, paint)
     }
 
@@ -122,7 +122,10 @@ class DimView(context: Context) : View(context) {
             }
         }
 
-        // 통과시킬 영역 외부를 터치한 경우 이벤트 소비
+        // 딤 영역 클릭 시 콜백 실행
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            onDimAreaClicked?.invoke()
+        }
         return true
     }
 
@@ -142,4 +145,5 @@ class DimView(context: Context) : View(context) {
         roundRectAreas.add(RoundRectArea(rectF, cornerRadius))
         invalidate()
     }
+
 }

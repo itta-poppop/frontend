@@ -1,29 +1,44 @@
 package com.ita.poppop.view.empty.story
 
-import android.os.CountDownTimer
-import android.util.Log
+import android.content.Context
+import androidx.core.view.WindowInsetsControllerCompat
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentStoryBinding
+import com.ita.poppop.view.empty.story.sub.StoryViewAdapter
 
 
-class StoryFragment: BaseFragment<FragmentStoryBinding>(R.layout.fragment_story) {
-    private val duration = 10_000L  // 30초
-    private val interval = 10L      // 30ms마다 업데이트
+class StoryFragment : BaseFragment<FragmentStoryBinding>(R.layout.fragment_story) {
 
     override fun initView() {
-        binding.apply {
-            object : CountDownTimer(duration, interval) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val progress = ((duration - millisUntilFinished) * 1000 / duration).toInt()
-                    pb.progress = progress
-                }
+        setupViewPager()
+    }
 
-                override fun onFinish() {
-                    pb.progress = 1000
-                    Log.d("ProgressBar", "30초 완료됨")
-                }
-            }.start()
+    private fun setupViewPager() {
+        binding.vpStory.adapter = StoryViewAdapter(this)
+    }
+
+    open fun changeViewPager() {
+        binding.vpStory.setCurrentItem(binding.vpStory.currentItem + 1, true)
+    }
+
+    private fun setSystemBarAppearance(isLight: Boolean) {
+        WindowInsetsControllerCompat(
+            requireActivity().window,
+            requireActivity().window.decorView
+        ).apply {
+            isAppearanceLightStatusBars = isLight
+            isAppearanceLightNavigationBars = isLight
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setSystemBarAppearance(isLight = false)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        setSystemBarAppearance(isLight = true)
     }
 }

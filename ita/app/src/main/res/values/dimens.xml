@@ -102,6 +102,7 @@
     <dimen name="item_100">100dp</dimen>
     <dimen name="item_108">108dp</dimen>
     <dimen name="item_118">118dp</dimen>
+    <dimen name="item_128">128dp</dimen>
     <dimen name="item_132">132dp</dimen>
     <dimen name="item_138">138dp</dimen>
     <dimen name="item_140">140dp</dimen>

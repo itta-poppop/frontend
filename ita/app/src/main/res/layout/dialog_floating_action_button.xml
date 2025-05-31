@@ -25,7 +25,7 @@
             android:layout_marginBottom="@dimen/margin_28"
             android:background="@drawable/shape_fab_background"
             app:backgroundTint="@color/white"
-            android:src="@drawable/_home_fab_cancel_button"
+            android:src="@drawable/icon_x_close_b"
             android:elevation="4dp"
             app:layout_constraintBottom_toTopOf="@+id/space"
             app:layout_constraintEnd_toEndOf="parent"/>

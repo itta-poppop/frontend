@@ -5,15 +5,27 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
 
+
+
         <!-- splash -->
         <item name="android:windowSplashScreenBackground" tools:targetApi="S">@color/white</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="S">@drawable/app_logo_splash</item>
 
 
+<!--        <item name="colorSurfaceContainerLow">@color/white</item>-->
+<!--        <item name="colorSurfaceContainerLowest">@color/white</item>-->
+<!--        <item name="colorSurfaceContainerHigh">@color/white</item>-->
+<!--        <item name="colorSurfaceContainerHighest">@color/white</item>-->
+
+
+        <!-- Material 3의 SurfaceContainer 색상들 -->
+        <item name="colorSurfaceContainer">@color/white</item>
+
+
         <!-- Android System NavBar Color -->
-        <item name="android:navigationBarColor">@color/white</item>
+<!--        <item name="android:navigationBarColor">@color/white</item>-->
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--         <item name="colorPrimary">@color/white</item>-->
 
 
     </style>
@@ -21,6 +33,11 @@
     <style name="DialogAnimation_None">
         <item name="android:windowEnterAnimation">@null</item>
         <item name="android:windowExitAnimation">@null</item>
+    </style>
+
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
     </style>
 
     <style name="Theme.PopPop" parent="Base.Theme.PopPop" />

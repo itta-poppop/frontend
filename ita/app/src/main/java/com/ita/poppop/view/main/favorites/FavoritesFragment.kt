@@ -3,11 +3,13 @@ package com.ita.poppop.view.main.favorites
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentFavoritesBinding
+import com.ita.poppop.view.main.MainFragmentDirections
 import com.ita.poppop.view.main.hide
 import com.ita.poppop.view.main.home.InfoFragment
 import com.ita.poppop.view.main.show
@@ -44,7 +46,7 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
 
             favoritesRVAdapter.setFavoritesItemClickListener(object : FavoritesRVAdapter.FavoritesItemClickListener{
                 override fun onItemClick(position: Int) {
-                    val infoFragment = InfoFragment().apply {
+                    /*val infoFragment = InfoFragment().apply {
                         arguments = Bundle().apply {
                         }
                     }
@@ -52,7 +54,12 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.fcv_favorites_fragment_container, infoFragment)
                         .addToBackStack(null)
-                        .commit()
+                        .commit()*/
+
+                        val parentNavController = requireActivity().findNavController(R.id.fcv_main_activity_container)
+                        val action = MainFragmentDirections.actionMainFragmentToNaviInfo()
+                        parentNavController.navigate(action)
+
                 }
             })
         }

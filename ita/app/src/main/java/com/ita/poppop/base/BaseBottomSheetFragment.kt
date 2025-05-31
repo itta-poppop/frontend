@@ -39,7 +39,6 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding>(@LayoutRes private v
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isCancelable = false  // 바깥 터치로 dismiss 안되게
     }
 
     override fun onStart() {
@@ -47,22 +46,6 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding>(@LayoutRes private v
 
         val dialog = dialog as BottomSheetDialog
         dialog.setCanceledOnTouchOutside(true)
-
-        dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-
-
-        val params = dialog?.window?.attributes
-        params?.height = (300 * resources.displayMetrics.density).toInt()
-        dialog?.window?.attributes = params
-
-        // BottomSheet 최대 높이 설정
-        val displayMetrics = resources.displayMetrics
-        val maxHeight = (displayMetrics.heightPixels * 0.85).toInt()
-        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, maxHeight)
-
-
-
-
     }
 
     abstract fun initView()

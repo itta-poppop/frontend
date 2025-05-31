@@ -10,6 +10,12 @@ class MapViewModel: ViewModel() {
     private val _mapList = MutableLiveData<MutableList<MapRVItem>>()
     val mapList: LiveData<MutableList<MapRVItem>> = _mapList
 
+    private val _selectCategoryBtn = MutableLiveData<String>()
+    val selectCategoryBtn: LiveData<String> = _selectCategoryBtn
+
+    fun selectCategoryBtn(category: String) {
+        _selectCategoryBtn.value = category
+    }
     fun getMap(){
         val list = mutableListOf<MapRVItem>()
         list.add(
@@ -23,7 +29,7 @@ class MapViewModel: ViewModel() {
         list.add(
             MapRVItem(
                 2,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.map_dummy_img,
                 "곽철이 X 더 닐라이 팝업스토어",
                 "25.03.31 - 25.03.31"
             )
@@ -31,7 +37,7 @@ class MapViewModel: ViewModel() {
         list.add(
             MapRVItem(
                 3,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.map_dummy_img,
                 "블리치전 애니메이션 20주년 기념 서울 전시",
                 "25.01.25 - 25.04.03"
             )
@@ -39,7 +45,7 @@ class MapViewModel: ViewModel() {
         list.add(
             MapRVItem(
                 4,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.map_dummy_img,
                 "블리치전 애니메이션 20주년 기념 서울 전시",
                 "25.01.25 - 25.04.03"
             )
@@ -47,7 +53,7 @@ class MapViewModel: ViewModel() {
         list.add(
             MapRVItem(
                 5,
-                R.drawable.main_btn_favorites_icon,
+                R.drawable.map_dummy_img,
                 "블리치전 애니메이션 20주년 기념 서울 전시",
                 "25.01.25 - 25.04.03"
             )

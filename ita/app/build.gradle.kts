@@ -69,6 +69,7 @@ dependencies {
 
     // 네이버 지도 SDK
     implementation ("com.naver.maps:map-sdk:3.21.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
     //설정용 프리퍼런스
     implementation("androidx.preference:preference-ktx:1.2.1")

@@ -23,4 +23,18 @@
         <item name="android:textColor">@color/gray_600</item>
     </style>
 
+    <!-- map category btn custom style -->
+    <style name="MapCategoryBtnStyle">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">6.5sp</item>
+        <item name="android:textColor">@color/map_category_btn_txt_selector</item>
+        <item name="android:background">@drawable/map_category_btn_selector</item>
+    </style>
+
 </resources>

@@ -23,7 +23,7 @@ class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReply
     }
 
     override fun initView() {
-
+        setupWindowInsets()
         binding.apply {
 
             // 뒤로 가기

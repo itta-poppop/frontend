@@ -23,7 +23,7 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
     }
 
     override fun initView() {
-
+        setupWindowInsets()
         binding.apply {
 
             ivReviewDetailBack.setOnClickListener {

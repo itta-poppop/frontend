@@ -36,6 +36,7 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
     private var isFavorite = false
 
     override fun initView() {
+        setupWindowInsets()
         binding.apply {
             
             // 상단 제목 상태 제어

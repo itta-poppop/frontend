@@ -21,6 +21,7 @@ class UploadFragment: BaseFragment<FragmentUploadBinding>(R.layout.fragment_uplo
 
 
     override fun initView() {
+        setupWindowInsets()
         binding.apply {
 
             uploadViewModel = ViewModelProvider(this@UploadFragment).get(UploadViewModel::class.java)

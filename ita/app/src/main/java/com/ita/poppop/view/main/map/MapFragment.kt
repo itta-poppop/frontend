@@ -2,20 +2,25 @@ package com.ita.poppop.view.main.map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentMapBinding
+import com.ita.poppop.databinding.ItemMapCustomMarkerBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
@@ -23,7 +28,6 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
-import com.naver.maps.map.util.MarkerIcons
 
 class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
 
@@ -36,6 +40,8 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
 
+    private val markers = mutableListOf<Marker>()
+
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun initView() {
@@ -43,25 +49,6 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
             mapViewModel = ViewModelProvider(this@MapFragment).get(MapViewModel::class.java)
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-            /*val categoryBtn = listOf(btnMapWhole, btnMapPopup, btnMapExhibition, btnMapFestival)
-
-            categoryBtn.forEach { button ->
-                button.setOnClickListener {
-                    categoryBtn.forEach { it.isSelected = false }
-                    button.isSelected = true
-
-                    when (button.id) {
-                        R.id.btn_map_whole -> mapViewModel.selectCategoryBtn("전체")
-                        R.id.btn_map_popup -> mapViewModel.selectCategoryBtn("팝업스토어")
-                        R.id.btn_map_exhibition -> mapViewModel.selectCategoryBtn("전시")
-                        R.id.btn_map_festival -> mapViewModel.selectCategoryBtn("페스티벌")
-                    }
-                }
-            }
-            mapViewModel.selectCategoryBtn.observe(viewLifecycleOwner) { category ->
-                Toast.makeText(context, category, Toast.LENGTH_SHORT).show()
-            }*/
 
             // 지도 설정
             rvMap.apply {
@@ -75,6 +62,12 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             mapViewModel.getMap()
             mapViewModel.mapList.observe(viewLifecycleOwner, Observer { response ->
                 mapRVAdapter.submitList(response)
+                if (::naverMap.isInitialized) {
+                    Log.d("MapFragment", "맵 초기화 후 호출")
+                    addCustomMarkers(response)
+                } else {
+
+                }
             })
             
             locationSource = FusedLocationSource(
@@ -87,17 +80,8 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             
             // 바텀 시트
             setBottomSheet()
-            setupBottomSheet()
 
         }
-    }
-    private fun setupBottomSheet() {
-        // BottomSheet 동작 설정
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.nsvBottomSheet)
-
-        // 초기상태 접힘
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
     }
 
     private fun setBottomSheet() {
@@ -180,6 +164,12 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
                 })
             }
         })
+
+        // BottomSheet 동작 설정
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.nsvBottomSheet)
+
+        // 초기상태 접힘
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     // dp -> px
@@ -220,7 +210,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
         // 실내지도 활성화
         naverMap.isIndoorEnabled = true
 
-        // 마커 저장 리스트
+        /*// 마커 저장 리스트
         val markers = mutableListOf<Marker>()
         // 마커 위경도
         val markerPositions = listOf(
@@ -240,8 +230,15 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
                 this.height = dpToPx(63)
             }
             markers.add(marker)
+        }*/
+
+        // naverMap 호출 후 데이터 있을시 마커 추가
+        mapViewModel.mapList.value?.let { items ->
+            Log.d("MapFragment", "기존 list 호출")
+            addCustomMarkers(items)
         }
-        
+
+
         // 줌 일정 레벨 이하일 경우 마커 숨기기
         naverMap.addOnCameraChangeListener { reason, animated ->
             val zoom = naverMap.cameraPosition.zoom
@@ -282,5 +279,58 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+    
+    // 이미지 비트맵 변환
+    private fun createBitmap(view: View): Bitmap {
+        val widthSpec = View.MeasureSpec.makeMeasureSpec(dpToPx(48), View.MeasureSpec.EXACTLY)
+        val heightSpec = View.MeasureSpec.makeMeasureSpec(dpToPx(63), View.MeasureSpec.EXACTLY)
+        view.measure(widthSpec, heightSpec)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    // 마커 커스텀
+    private fun addCustomMarkers(items: List<MapRVItem>) {
+        Log.d("MapFragment", "마커 개수: ${items.size}")
+        // 기존 마커 제거 (중복)
+        markers.forEach { it.map = null }
+        markers.clear()
+
+        items.forEach { item ->
+            Log.d("MapFragment", "마커 추가 : ${item.itemId} (${item.lat}, ${item.lng})")
+            Glide.with(this)
+                .asBitmap()
+                .load(item.imageUrl)
+                .placeholder(R.drawable.app_logo)
+                .error(R.drawable.app_logo)
+                .centerCrop()
+                .circleCrop()
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        val binding = ItemMapCustomMarkerBinding.inflate(LayoutInflater.from(context))
+                        val customMarker = binding.root
+                        val markerImg = binding.ivMapCustomMarker
+                        markerImg.setImageBitmap(resource)
+
+                        val bitmap = createBitmap(customMarker)
+
+                        val marker = Marker().apply {
+                            position = LatLng(item.lat, item.lng)
+                            icon = OverlayImage.fromBitmap(bitmap)
+                            width = dpToPx(48)
+                            height = dpToPx(63)
+                            map = naverMap
+                        }
+
+                        markers.add(marker)
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+        }
     }
 }

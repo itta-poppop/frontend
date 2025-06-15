@@ -4,11 +4,18 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.PointF
 import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.util.Log
+import android.view.Gravity
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,11 +24,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentMapBinding
 import com.ita.poppop.databinding.ItemMapCustomMarkerBinding
+import com.ita.poppop.databinding.ToastMessageBinding
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
@@ -81,6 +93,33 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             // 바텀 시트
             setBottomSheet()
 
+            // 검색 주소 위경도 변환 후 카메라 이동
+            editSearch.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    // 엔터시 키보드 내리기
+                    val imm = ContextCompat.getSystemService(v.context, InputMethodManager::class.java)
+                    imm!!.hideSoftInputFromWindow(v.windowToken, 0)
+
+                    // 맵 이동
+                    val address = editSearch.text.toString()
+                    try {
+                        val result = getGeocodeFromAddress(address)
+                        val latLng = LatLng(result.latitude, result.longitude)
+                        Log.d("MapFragment", "입력된 주소의 위경도: ${latLng.latitude}, ${latLng.longitude}")
+
+                        val cameraPosition = CameraPosition(latLng, 15.0)
+                        val cameraUpdate = CameraUpdate.toCameraPosition(cameraPosition)
+                            .animate(CameraAnimation.Easing)
+                        naverMap.moveCamera(cameraUpdate)
+                        Log.d("MapFragment", "${address} 이동 완료")
+
+                    } catch (e: Exception) {
+                        Log.e("MapFragment", "Geocode 실패: ${e.message}")
+                    }
+                    return@OnKeyListener true
+                }
+                false
+            })
         }
     }
 
@@ -203,34 +242,35 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true)
 
         // 위치 권한 확인
         checkLocationPermission()
 
-        // 실내지도 활성화
+        // 실내 지도 활성화
         naverMap.isIndoorEnabled = true
 
-        /*// 마커 저장 리스트
-        val markers = mutableListOf<Marker>()
-        // 마커 위경도
-        val markerPositions = listOf(
-            LatLng(37.5670, 126.9780),
-            LatLng(37.5680, 126.9790),
-            LatLng(37.5660, 126.9770)
-        )
-        
-        // 마커 커스텀
-        markerPositions.forEach { position ->
-            val marker = Marker().apply {
-                this.position = position
-                this.map = naverMap
-                //this.icon = OverlayImage.fromResource(R.drawable.app_logo)
-                this.icon = MarkerIcons.BLACK
-                this.width = dpToPx(50)
-                this.height = dpToPx(63)
+        /*// 첫 맵 화면
+        val startPosition = LatLng(37.626265, 127.008627)
+        val cameraUpdate = CameraUpdate
+            .scrollTo(startPosition)
+            .pivot(PointF(0.5f, 0.8f))
+            .animate(CameraAnimation.Easing)
+        naverMap.moveCamera(cameraUpdate)*/
+
+        var isInitialCameraState = true
+
+        // 재검색 버튼
+        naverMap.addOnCameraIdleListener {
+            if (isInitialCameraState) {
+                isInitialCameraState = false
+            } else {
+                binding.acbRebrowse.visibility = View.VISIBLE
             }
-            markers.add(marker)
-        }*/
+        }
+        binding.acbRebrowse.setOnClickListener {
+            it.visibility = View.GONE
+        }
 
         // naverMap 호출 후 데이터 있을시 마커 추가
         mapViewModel.mapList.value?.let { items ->
@@ -279,6 +319,30 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+    
+    // 검색어 -> 위경도 변환
+    fun getGeocodeFromAddress(address: String): Address {
+        val coder = Geocoder(requireContext())
+        val geocodedAddress = coder.getFromLocationName(address, 1)
+        if (!geocodedAddress.isNullOrEmpty()) {
+            val newAddress = geocodedAddress[0]
+            Log.d("MapFragment", "위경도로 변환: ${newAddress.latitude}, ${newAddress.longitude}")
+            return newAddress
+        } else {
+            //Toast.makeText(requireContext(), "잘못된 주소입니다.", Toast.LENGTH_LONG).show()
+            //Snackbar.make(binding.root, "잘못된 주소입니다.", Snackbar.LENGTH_LONG).show()
+            /*val binding = ToastMessageBinding.inflate(layoutInflater)
+            binding.tvToastMessage.text = "${address}는 잘못된 주소입니다."
+
+            Toast(requireContext()).apply {
+                duration = Toast.LENGTH_LONG
+                view = binding.root
+                setGravity(Gravity.CENTER, 0, 0)
+                show()
+            }*/
+            throw IllegalArgumentException("위경도 변환 실패 $address")
+        }
     }
     
     // 이미지 비트맵 변환

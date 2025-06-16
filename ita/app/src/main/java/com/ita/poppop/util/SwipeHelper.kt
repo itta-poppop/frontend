@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ita.poppop.R
 import com.ita.poppop.view.empty.notification.holder.HomeNotificationViewHolder
+import com.ita.poppop.view.main.favorites.FavoritesRVAdapter
 import kotlin.math.max
 import kotlin.math.min
 
@@ -114,7 +115,18 @@ class SwipeHelper: ItemTouchHelper.Callback() {
     }
 
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as HomeNotificationViewHolder).itemView.findViewById(R.id.cl_notification_content)
+        //return (viewHolder as HomeNotificationViewHolder).itemView.findViewById(R.id.cl_notification_content)
+        return when (viewHolder) {
+            is HomeNotificationViewHolder -> {
+                viewHolder.itemView.findViewById(R.id.cl_notification_content)
+            }
+            is FavoritesRVAdapter.FavoritesViewHolder -> {
+                viewHolder.itemView.findViewById(R.id.cl_favorites_content)
+            }
+            else -> {
+                viewHolder.itemView // fallback
+            }
+        }
     }
 
     // 포지션을 키로 사용하여 clamped 상태를 저장/조회하는 메서드

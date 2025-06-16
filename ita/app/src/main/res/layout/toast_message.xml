@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_toast_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/gray_700"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_toast_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="7dp"
+            android:text="toast message"
+            android:fontFamily="@font/pretendard_medium"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:textColor="@color/gray_300"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="6.5sp"
+            android:gravity="center_horizontal"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

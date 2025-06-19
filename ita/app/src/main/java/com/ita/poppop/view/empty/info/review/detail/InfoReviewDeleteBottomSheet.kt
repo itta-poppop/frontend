@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ita.poppop.databinding.FragmentInfoReviewDeleteBottomSheetBinding
 
@@ -28,7 +29,7 @@ class InfoReviewDeleteBottomSheet : BottomSheetDialogFragment() {
 
     private fun initListeners() {
         binding.clReviewEdit.setOnClickListener {
-            //리뷰 수정 화면 이동
+            gotoReviewEditFragment()
         }
         binding.clReviewDelete.setOnClickListener {
             showReviewDeleteDialog()
@@ -43,6 +44,13 @@ class InfoReviewDeleteBottomSheet : BottomSheetDialogFragment() {
             })
             show()
         }
+    }
+
+    private fun gotoReviewEditFragment() {
+        dismiss()
+        val parentNavController = requireParentFragment().findNavController()
+        val action = InfoReviewDetailFragmentDirections.actionInfoReviewDetailFragmentToInfoReviewEditFragment()
+        parentNavController.navigate(action)
     }
 
     override fun onDestroyView() {

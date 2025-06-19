@@ -113,7 +113,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/info_review_heart_icon"
+                android:src="@drawable/info_review_heart_icon_outlined"
                 app:layout_constraintTop_toBottomOf="@id/tv_review_detail_content"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -159,17 +159,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_info_review_detail_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:paddingHorizontal="16dp"
             android:paddingTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cl_info_review_upload_comment"
             app:layout_constraintTop_toBottomOf="@+id/cl_info_review_detail_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_review_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="27dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

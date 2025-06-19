@@ -80,7 +80,7 @@
                 android:id="@+id/iv_review_heart"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/info_review_heart_icon"
+                android:src="@drawable/info_review_heart_icon_outlined"
                 app:layout_constraintTop_toTopOf="@id/cl_comments"
                 app:layout_constraintStart_toStartOf="@id/cl_comments"/>
 
@@ -88,7 +88,7 @@
                 android:id="@+id/tv_review_heart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="med"
+                android:fontFamily="@font/pretendard_medium"
                 android:text="12"
                 android:textSize="15sp"
                 android:textColor="@color/gray_700"

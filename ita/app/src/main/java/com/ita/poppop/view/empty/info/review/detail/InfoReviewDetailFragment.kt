@@ -4,17 +4,26 @@ import android.graphics.Rect
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoReviewDetailBinding
-import com.ita.poppop.util.bottomsheet.UploadBottomSheet
 import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentDeleteBottomSheet
 import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentRVAdapter
 import com.ita.poppop.view.empty.info.review.comment.InfoReviewCommentViewModel
+import com.ita.poppop.view.empty.info.review.image.InfoReviewImageRVAdapter
 
 class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R.layout.fragment_info_review_detail){
+
+    private val infoReviewDetailArgs: InfoReviewDetailFragmentArgs by navArgs()
+
+    private lateinit var infoReviewDetailViewModel: InfoReviewDetailViewModel
+
+    private val infoReviewImageRVAdapter by lazy {
+        InfoReviewImageRVAdapter()
+    }
 
     private lateinit var infoReviewCommentViewModel: InfoReviewCommentViewModel
 
@@ -27,16 +36,55 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
         binding.apply {
 
             ivReviewDetailBack.setOnClickListener {
-                parentFragmentManager.popBackStack()
+                //parentFragmentManager.popBackStack()
+                findNavController().previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set("reviewTab", 1)
+                findNavController().popBackStack()
+            }
+
+            // 리뷰 상세
+            infoReviewDetailViewModel = ViewModelProvider(this@InfoReviewDetailFragment).get(InfoReviewDetailViewModel::class.java)
+            infoReviewDetailViewModel.getInfoReviewDetail(infoReviewDetailArgs.review.itemId)
+
+            // 이미지 가져오기
+            rvReviewDetailImage.apply {
+                adapter = infoReviewImageRVAdapter
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            }
+
+            infoReviewDetailViewModel.review.observe(viewLifecycleOwner) { review ->
+                tvReviewDetailContent.text = review.content
+                tvReviewDetailUsername.text = review.username
+                tvReviewDetailTime.text = review.time
+                tvReviewDetailHeart.text = review.hearts.toString()
+                tvReviewDetailComment.text = review.comments.toString()
+                infoReviewImageRVAdapter.submitList(review.reviewImage)
+                ivReviewDetailProfile.setImageResource(review.profileImage)
+            }
+
+            // 하트 제어
+            var isHeartClicked = false
+            var heartCount = tvReviewDetailHeart.text.toString().toIntOrNull() ?: 0
+            ivReviewDetailHeart.setOnClickListener {
+                if (isHeartClicked) {
+                    heartCount -= 1
+                    ivReviewDetailHeart.setImageResource(R.drawable.info_review_heart_icon_outlined)
+                } else {
+                    heartCount += 1
+                    ivReviewDetailHeart.setImageResource(R.drawable.info_review_heart_icon_filled)
+                }
+                isHeartClicked = !isHeartClicked
+                tvReviewDetailHeart.text = heartCount.toString()
             }
 
             ivInfoReviewDetailDot.setOnClickListener {
                 showInfoReviewDeleteBottomSheet()
             }
 
+            // 리뷰 댓글
             infoReviewCommentViewModel = ViewModelProvider(this@InfoReviewDetailFragment).get(InfoReviewCommentViewModel::class.java)
 
-            // 리뷰 댓글
             rvReviewComment.apply {
                 val layoutmanager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 layoutManager = layoutmanager

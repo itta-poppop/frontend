@@ -29,7 +29,7 @@ class InfoReviewCommentViewModel :ViewModel() {
                 R.drawable.main_btn_favorites_icon,
                 "skyline_7",
                 "6일 전",
-                "헉 ㅠㅠ 너무 가고 싶어요ㅠ",
+                "전시가 애니 속 장면들을 잘 살려놔서 보는 내내 몰입감 장난 아니었어요.'거짓말과 아이', '빛과 그림자' 같은 테마도 은근 생각하게 만들더라구요.",
                 null
             )
         )
@@ -39,7 +39,7 @@ class InfoReviewCommentViewModel :ViewModel() {
                 R.drawable.main_btn_favorites_icon,
                 "wild_zeal",
                 "6일 전",
-                "헉 ㅠㅠ 너무 가고 싶어요ㅠ",
+                "전시가 애니 속 장면들을 잘 살려놔서 보는 내내 몰입감 장난 아니었어요.'거짓말과 아이', '빛과 그림자' 같은 테마도 은근 생각하게 만들더라구요.",
                 3
             )
         )

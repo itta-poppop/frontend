@@ -1,28 +1,20 @@
 package com.ita.poppop.view.main.home
 
-import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentInfoBinding
 import com.ita.poppop.view.empty.info.detail.InfoDetailFragment
-import com.ita.poppop.view.empty.info.recommend.InfoRecommendRVAdapter
-import com.ita.poppop.view.empty.info.recommend.InfoRecommendViewModel
 import com.ita.poppop.view.empty.info.review.InfoReviewFragment
 import com.ita.poppop.view.empty.info.story.InfoStoryRVAdapter
 import com.ita.poppop.view.empty.info.story.InfoStoryViewModel
-import com.ita.poppop.view.empty.notification.sub.NotificationNewsFragment
-import com.ita.poppop.view.empty.notification.sub.NotificationNoticeFragment
-import com.ita.poppop.view.main.MainFragmentDirections
+import com.ita.poppop.view.main.hide
 
 
 class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
@@ -43,6 +35,7 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
             svInfo.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
                 val alpha = if (scrollY > 0) 1f else 0f
                 cvInfoTopbar.alpha = alpha
+                ibInfoBack.hide()
             }
 
             ibInfoBack.setOnClickListener {
@@ -100,6 +93,16 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
                 }
 
             })
+            
+            // 리뷰 상세에서 뒤로가기시 리뷰탭
+            findNavController().currentBackStackEntry
+                ?.savedStateHandle
+                ?.getLiveData<Int>("reviewTab")
+                ?.observe(viewLifecycleOwner) { tabIndex ->
+                    if (tabIndex != null) {
+                        icInfoTablayout.tlInfo.getTabAt(tabIndex)?.select()
+                    }
+                }
         }
 
     }

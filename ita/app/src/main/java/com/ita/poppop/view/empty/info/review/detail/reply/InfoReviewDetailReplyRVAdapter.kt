@@ -34,7 +34,7 @@ class InfoReviewDetailReplyRVAdapter: ListAdapter<InfoReviewDetailReplyRVItem, I
                 tvReplyContent.text = item.reply
 
                 ivInfoReviewReplyDot.setOnClickListener{
-                    InfoReviewCommentDeleteBottomSheet()
+                    //InfoReviewCommentDeleteBottomSheet()
                 }
             }
         }

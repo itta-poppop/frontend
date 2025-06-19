@@ -1,5 +1,6 @@
 package com.ita.poppop.view.main.home
 
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -30,12 +31,12 @@ class InfoFragment: BaseFragment<FragmentInfoBinding>(R.layout.fragment_info) {
     override fun initView() {
         setupWindowInsets()
         binding.apply {
-            
+
             // 상단 제목 상태 제어
             svInfo.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-                val alpha = if (scrollY > 0) 1f else 0f
-                cvInfoTopbar.alpha = alpha
-                ibInfoBack.hide()
+                val showTopbar = scrollY > 0
+                cvInfoTopbar.alpha = if (showTopbar) 1f else 0f
+                ibInfoBack.visibility = if (showTopbar) View.GONE else View.VISIBLE
             }
 
             ibInfoBack.setOnClickListener {

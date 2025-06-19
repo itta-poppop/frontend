@@ -77,10 +77,16 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
         val item = getItem(position)
         holder.bind(item)
         holder.binding.clInfoReviewCommentReply.setOnClickListener {
-            infoReviewCommentItemClickListener.onArrowClick(position)
+            val pos = holder.adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                infoReviewCommentItemClickListener.onArrowClick(pos)
+            }
         }
         holder.binding.ivInfoReviewCommentDot.setOnClickListener {
-            infoReviewCommentItemClickListener.onDotClick(position)
+            val pos = holder.adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                infoReviewCommentItemClickListener.onDotClick(pos)
+            }
         }
     }
 }

@@ -9,6 +9,16 @@ class InfoReviewCommentViewModel :ViewModel() {
 
     private val _inforeviewcommentList = MutableLiveData<MutableList<InfoReviewCommentRVItem>>()
     val inforeviewcommentList: LiveData<MutableList<InfoReviewCommentRVItem>> = _inforeviewcommentList
+    
+    // 리뷰 상세 화면에서 댓글 삭제
+    fun deleteComment(commentItemId: Int) {
+        val currentList = _inforeviewcommentList.value?.toMutableList() ?: return
+        val index = currentList.indexOfFirst { it.itemId == commentItemId }
+        if (index != -1) {
+            currentList.removeAt(index)
+            _inforeviewcommentList.value = currentList
+        }
+    }
 
     fun getInfoReviewComment(){
         val list = mutableListOf<InfoReviewCommentRVItem>()

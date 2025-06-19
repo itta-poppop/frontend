@@ -1,6 +1,7 @@
 package com.ita.poppop.view.empty.info.review.detail
 
 import android.graphics.Rect
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -117,7 +118,16 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
                 }
                 // 댓글 점 클릭 시
                 override fun onDotClick(position: Int) {
-                    InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete comment")
+                    val item = infoReviewCommentRVAdapter.currentList.getOrNull(position)
+                    if (item == null) {
+                        return
+                    }
+                    InfoReviewCommentDeleteBottomSheet(
+                        commentItemId = item.itemId,
+                        onDeleteConfirmed = { deleteItemId ->
+                            infoReviewCommentViewModel.deleteComment(deleteItemId)
+                        }
+                    ).show(parentFragmentManager, "delete comment")
                 }
             })
 

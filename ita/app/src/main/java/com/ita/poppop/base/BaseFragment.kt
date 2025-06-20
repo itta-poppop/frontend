@@ -48,7 +48,7 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int)
             val isKeyboardVisible = imeInsets.bottom > 0
 
             view.setPadding(
-                view.paddingLeft,   
+                view.paddingLeft,
                 view.paddingTop,
                 view.paddingRight,
                 // 키보드가 올라와 있으면 패딩을 0으로, 아니면 시스템바 인셋 적용

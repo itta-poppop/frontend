@@ -1,7 +1,5 @@
 package com.ita.poppop.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
-
 //data class GetTrendResponse(
 //    @SerializedName("code")
 //    val code: String,
@@ -24,13 +22,13 @@ import com.google.gson.annotations.SerializedName
 //    val location: String
 //)
 
-data class GetTrendResponse(
+data class GetPopupResponse(
     val code: String,
     val message: String,
-    val data: List<TrendItem>
+    val data: List<PopupItem>
 )
 
-data class TrendItem(
+data class PopupItem(
     val title: String,
     val imageUrl: String,
     val location: String

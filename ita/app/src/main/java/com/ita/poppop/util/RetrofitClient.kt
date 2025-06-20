@@ -1,6 +1,6 @@
 package com.ita.poppop.util
 
-import com.ita.poppop.data.remote.api.TrendApi
+import com.ita.poppop.data.remote.api.PopupApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,7 +14,7 @@ object RetrofitClient {
             .build()
     }
 
-    val trendApi: TrendApi by lazy {
-        retrofit.create(TrendApi::class.java)
+    val trendApi: PopupApi by lazy {
+        retrofit.create(PopupApi::class.java)
     }
 }

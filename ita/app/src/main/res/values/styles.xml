@@ -24,7 +24,7 @@
     </style>
 
     <!-- map category btn custom style -->
-    <style name="MapCategoryBtnStyle">
+    <!--<style name="MapCategoryBtnStyle">
         <item name="android:minWidth">0dp</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:paddingVertical">8dp</item>
@@ -35,6 +35,6 @@
         <item name="android:lineSpacingExtra">6.5sp</item>
         <item name="android:textColor">@color/map_category_btn_txt_selector</item>
         <item name="android:background">@drawable/map_category_btn_selector</item>
-    </style>
+    </style>-->
 
 </resources>

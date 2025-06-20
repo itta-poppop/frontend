@@ -84,6 +84,7 @@ dependencies {
     // 글라이드
     implementation("com.github.bumptech.glide:glide:4.13.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
+    kapt("com.github.bumptech.glide:compiler:4.13.0")
 
     // 서버
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

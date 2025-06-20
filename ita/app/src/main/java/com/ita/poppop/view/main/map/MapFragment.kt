@@ -2,28 +2,44 @@ package com.ita.poppop.view.main.map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.util.Log
+import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentMapBinding
+import com.ita.poppop.databinding.ItemMapCustomMarkerBinding
+import com.ita.poppop.databinding.ToastMessageBinding
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
-import com.naver.maps.map.util.MarkerIcons
 
 class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
 
@@ -35,6 +51,9 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val markers = mutableListOf<Marker>()
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -43,25 +62,6 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
             mapViewModel = ViewModelProvider(this@MapFragment).get(MapViewModel::class.java)
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-            /*val categoryBtn = listOf(btnMapWhole, btnMapPopup, btnMapExhibition, btnMapFestival)
-
-            categoryBtn.forEach { button ->
-                button.setOnClickListener {
-                    categoryBtn.forEach { it.isSelected = false }
-                    button.isSelected = true
-
-                    when (button.id) {
-                        R.id.btn_map_whole -> mapViewModel.selectCategoryBtn("전체")
-                        R.id.btn_map_popup -> mapViewModel.selectCategoryBtn("팝업스토어")
-                        R.id.btn_map_exhibition -> mapViewModel.selectCategoryBtn("전시")
-                        R.id.btn_map_festival -> mapViewModel.selectCategoryBtn("페스티벌")
-                    }
-                }
-            }
-            mapViewModel.selectCategoryBtn.observe(viewLifecycleOwner) { category ->
-                Toast.makeText(context, category, Toast.LENGTH_SHORT).show()
-            }*/
 
             // 지도 설정
             rvMap.apply {
@@ -75,6 +75,12 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             mapViewModel.getMap()
             mapViewModel.mapList.observe(viewLifecycleOwner, Observer { response ->
                 mapRVAdapter.submitList(response)
+                if (::naverMap.isInitialized) {
+                    Log.d("MapFragment", "맵 초기화 후 호출")
+                    addCustomMarkers(response)
+                } else {
+
+                }
             })
             
             locationSource = FusedLocationSource(
@@ -87,17 +93,35 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
             
             // 바텀 시트
             setBottomSheet()
-            setupBottomSheet()
 
+            // 검색 주소 위경도 변환 후 카메라 이동
+            editSearch.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    // 엔터시 키보드 내리기
+                    val imm = ContextCompat.getSystemService(v.context, InputMethodManager::class.java)
+                    imm!!.hideSoftInputFromWindow(v.windowToken, 0)
+
+                    // 맵 이동
+                    val address = editSearch.text.toString()
+                    try {
+                        val result = getGeocodeFromAddress(address)
+                        val latLng = LatLng(result.latitude, result.longitude)
+                        Log.d("MapFragment", "입력된 주소의 위경도: ${latLng.latitude}, ${latLng.longitude}")
+
+                        val cameraPosition = CameraPosition(latLng, 15.0)
+                        val cameraUpdate = CameraUpdate.toCameraPosition(cameraPosition)
+                            .animate(CameraAnimation.Easing)
+                        naverMap.moveCamera(cameraUpdate)
+                        Log.d("MapFragment", "${address} 이동 완료")
+
+                    } catch (e: Exception) {
+                        Log.e("MapFragment", "Geocode 실패: ${e.message}")
+                    }
+                    return@OnKeyListener true
+                }
+                false
+            })
         }
-    }
-    private fun setupBottomSheet() {
-        // BottomSheet 동작 설정
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.nsvBottomSheet)
-
-        // 초기상태 접힘
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
     }
 
     private fun setBottomSheet() {
@@ -180,6 +204,12 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
                 })
             }
         })
+
+        // BottomSheet 동작 설정
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.nsvBottomSheet)
+
+        // 초기상태 접힘
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     // dp -> px
@@ -213,35 +243,44 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         // 위치 권한 확인
         checkLocationPermission()
 
-        // 실내지도 활성화
+        // 실내 지도 활성화
         naverMap.isIndoorEnabled = true
 
-        // 마커 저장 리스트
-        val markers = mutableListOf<Marker>()
-        // 마커 위경도
-        val markerPositions = listOf(
-            LatLng(37.5670, 126.9780),
-            LatLng(37.5680, 126.9790),
-            LatLng(37.5660, 126.9770)
-        )
-        
-        // 마커 커스텀
-        markerPositions.forEach { position ->
-            val marker = Marker().apply {
-                this.position = position
-                this.map = naverMap
-                //this.icon = OverlayImage.fromResource(R.drawable.app_logo)
-                this.icon = MarkerIcons.BLACK
-                this.width = dpToPx(50)
-                this.height = dpToPx(63)
+        /*// 첫 맵 화면
+        val startPosition = LatLng(37.626265, 127.008627)
+        val cameraUpdate = CameraUpdate
+            .scrollTo(startPosition)
+            .pivot(PointF(0.5f, 0.8f))
+            .animate(CameraAnimation.Easing)
+        naverMap.moveCamera(cameraUpdate)*/
+
+        var isInitialCameraState = true
+
+        // 재검색 버튼
+        naverMap.addOnCameraIdleListener {
+            if (isInitialCameraState) {
+                isInitialCameraState = false
+            } else {
+                binding.acbRebrowse.visibility = View.VISIBLE
             }
-            markers.add(marker)
         }
-        
+        binding.acbRebrowse.setOnClickListener {
+            it.visibility = View.GONE
+        }
+
+        // naverMap 호출 후 데이터 있을시 마커 추가
+        mapViewModel.mapList.value?.let { items ->
+            Log.d("MapFragment", "기존 list 호출")
+            addCustomMarkers(items)
+        }
+
+
         // 줌 일정 레벨 이하일 경우 마커 숨기기
         naverMap.addOnCameraChangeListener { reason, animated ->
             val zoom = naverMap.cameraPosition.zoom
@@ -277,10 +316,101 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
         } else {
             // 권한 있으면 위치 추적 모드 켜기
             naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+            // 현재 위치로 카메라 이동
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    val cameraUpdate = CameraUpdate.scrollTo(latLng).animate(CameraAnimation.Easing)
+                    naverMap.moveCamera(cameraUpdate)
+                    Log.d("MapFragment", "현재 위치: $latLng")
+                } else {
+                    Log.w("MapFragment", "현재 위치 정보 없음")
+                }
+            }.addOnFailureListener {
+                Log.e("MapFragment", "현재 위치 가져오기 실패: ${it.message}")
+            }
         }
     }
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+    
+    // 검색어 -> 위경도 변환
+    fun getGeocodeFromAddress(address: String): Address {
+        val coder = Geocoder(requireContext())
+        val geocodedAddress = coder.getFromLocationName(address, 1)
+        if (!geocodedAddress.isNullOrEmpty()) {
+            val newAddress = geocodedAddress[0]
+            Log.d("MapFragment", "위경도로 변환: ${newAddress.latitude}, ${newAddress.longitude}")
+            return newAddress
+        } else {
+            //Toast.makeText(requireContext(), "잘못된 주소입니다.", Toast.LENGTH_LONG).show()
+            //Snackbar.make(binding.root, "잘못된 주소입니다.", Snackbar.LENGTH_LONG).show()
+            /*val binding = ToastMessageBinding.inflate(layoutInflater)
+            binding.tvToastMessage.text = "${address}는 잘못된 주소입니다."
+
+            Toast(requireContext()).apply {
+                duration = Toast.LENGTH_LONG
+                view = binding.root
+                setGravity(Gravity.CENTER, 0, 0)
+                show()
+            }*/
+            throw IllegalArgumentException("위경도 변환 실패 $address")
+        }
+    }
+    
+    // 이미지 비트맵 변환
+    private fun createBitmap(view: View): Bitmap {
+        val widthSpec = View.MeasureSpec.makeMeasureSpec(dpToPx(48), View.MeasureSpec.EXACTLY)
+        val heightSpec = View.MeasureSpec.makeMeasureSpec(dpToPx(63), View.MeasureSpec.EXACTLY)
+        view.measure(widthSpec, heightSpec)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    // 마커 커스텀
+    private fun addCustomMarkers(items: List<MapRVItem>) {
+        Log.d("MapFragment", "마커 개수: ${items.size}")
+        // 기존 마커 제거 (중복)
+        markers.forEach { it.map = null }
+        markers.clear()
+
+        items.forEach { item ->
+            Log.d("MapFragment", "마커 추가 : ${item.itemId} (${item.lat}, ${item.lng})")
+            Glide.with(this)
+                .asBitmap()
+                .load(item.imageUrl)
+                .placeholder(R.drawable.app_logo)
+                .error(R.drawable.app_logo)
+                .centerCrop()
+                .circleCrop()
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        val binding = ItemMapCustomMarkerBinding.inflate(LayoutInflater.from(context))
+                        val customMarker = binding.root
+                        val markerImg = binding.ivMapCustomMarker
+                        markerImg.setImageBitmap(resource)
+
+                        val bitmap = createBitmap(customMarker)
+
+                        val marker = Marker().apply {
+                            position = LatLng(item.lat, item.lng)
+                            icon = OverlayImage.fromBitmap(bitmap)
+                            width = dpToPx(48)
+                            height = dpToPx(63)
+                            map = naverMap
+                        }
+
+                        markers.add(marker)
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+        }
     }
 }

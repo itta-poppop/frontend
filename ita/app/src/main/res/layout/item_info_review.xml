@@ -17,6 +17,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
+            android:layout_marginStart="16dp"
             android:background="@drawable/info_story_profile_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -49,6 +50,8 @@
             android:id="@+id/rv_review_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="false"
             android:layout_marginTop="@dimen/margin_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_review_time" />
@@ -57,6 +60,7 @@
             android:id="@+id/tv_review_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:text="전시가 애니 속 장면들을 잘 살려놔서 보는 내내 몰입감 장난 아니었어요. ‘거짓말과 아이’, '빛과 그림자’ 같은 테같은 테마도 은근 생각하게 만들더라구요."
             android:textSize="14sp"
             android:textColor="#505050"
@@ -73,6 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintTop_toBottomOf="@id/tv_review_content"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -80,7 +85,7 @@
                 android:id="@+id/iv_review_heart"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/info_review_heart_icon"
+                android:src="@drawable/info_review_heart_icon_outlined"
                 app:layout_constraintTop_toTopOf="@id/cl_comments"
                 app:layout_constraintStart_toStartOf="@id/cl_comments"/>
 
@@ -88,7 +93,7 @@
                 android:id="@+id/tv_review_heart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="med"
+                android:fontFamily="@font/pretendard_medium"
                 android:text="12"
                 android:textSize="15sp"
                 android:textColor="@color/gray_700"

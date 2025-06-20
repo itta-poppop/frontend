@@ -18,29 +18,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppbar"
+        <TextView
+            android:id="@+id/tv_favorites_top"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="52dp"
+            android:background="@drawable/background_line_1"
+            android:text="@string/main_btn_favorites_title"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="@color/gray_900"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="8sp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sbsv"
-            app:title="@string/main_btn_favorites_title"
-            app:titleCentered="true"
-            app:titleTextColor="@color/black" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_1"
-            android:background="@color/gray_300"
-            app:layout_constraintBottom_toBottomOf="@+id/topAppbar" />
-
+            app:layout_constraintTop_toBottomOf="@+id/sbsv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_favorites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/topAppbar" />
+            android:paddingTop="@dimen/padding_12"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorites_top" />
 
         <include
             android:id="@+id/empty_state_layout"

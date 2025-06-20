@@ -43,8 +43,10 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
                 // 답글 개수 0일시, 레이아웃 숨김 처리
                 if (item.reply == null || item.reply == 0) {
                     binding.clInfoReviewCommentReply.visibility = View.GONE
+                    binding.view1.visibility = View.GONE
                 } else {
                     binding.clInfoReviewCommentReply.visibility = View.VISIBLE
+                    binding.view1.visibility = View.VISIBLE
                 }
 
             }
@@ -75,10 +77,16 @@ class InfoReviewCommentRVAdapter: ListAdapter<InfoReviewCommentRVItem, InfoRevie
         val item = getItem(position)
         holder.bind(item)
         holder.binding.clInfoReviewCommentReply.setOnClickListener {
-            infoReviewCommentItemClickListener.onArrowClick(position)
+            val pos = holder.adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                infoReviewCommentItemClickListener.onArrowClick(pos)
+            }
         }
         holder.binding.ivInfoReviewCommentDot.setOnClickListener {
-            infoReviewCommentItemClickListener.onDotClick(position)
+            val pos = holder.adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                infoReviewCommentItemClickListener.onDotClick(pos)
+            }
         }
     }
 }

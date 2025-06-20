@@ -3,87 +3,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_item_favorites"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_delete_favorites"
+            android:layout_width="@dimen/item_54"
+            android:layout_height="match_parent"
+            android:background="#E50C3B"
+            android:layout_gravity="end">
+
+            <ImageView
+                android:layout_width="@dimen/item_24"
+                android:layout_height="@dimen/item_24"
+                android:src="@drawable/icon_trash"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_favorites_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_item_favorites"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/item_18">
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                tools:ignore="MissingConstraints">
 
-                <ImageView
-                    android:id="@+id/iv_favorites"
-                    android:layout_width="@dimen/item_132"
-                    android:layout_height="@dimen/item_132"
-                    tools:ignore="MissingConstraints" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingBottom="@dimen/padding_10">
 
-                <ImageButton
-                    android:id="@+id/btn_favorites_star"
-                    android:layout_width="@dimen/item_28"
-                    android:layout_height="@dimen/item_28"
-                    android:background="@null"
-                    android:src="@drawable/main_btn_favorites_icon"
-                    app:tint="#F4ED17"
-                    app:layout_constraintTop_toTopOf="@id/iv_favorites"
-                    app:layout_constraintEnd_toEndOf="@id/iv_favorites"
-                    android:layout_margin="@dimen/item_4"/>
+                    <ImageView
+                        android:id="@+id/iv_favorites"
+                        android:layout_width="98dp"
+                        android:layout_height="98dp"
+                        android:scaleType="fitXY"
+                        tools:ignore="MissingConstraints" />
 
-                <TextView
-                    android:id="@+id/tv_favorites_location"
-                    android:text="장소"
-                    android:textSize="@dimen/text_14"
-                    android:textColor="@color/gray_600"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/iv_favorites"
-                    app:layout_constraintTop_toTopOf="@id/iv_favorites"
-                    android:layout_marginStart="@dimen/item_16" />
+                    <ImageView
+                        android:id="@+id/btn_favorites_star"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@null"
+                        android:elevation="4dp"
+                        android:src="@drawable/main_btn_favorites_icon"
+                        app:tint="#F4ED17"
+                        app:layout_constraintTop_toTopOf="@id/iv_favorites"
+                        app:layout_constraintEnd_toEndOf="@id/iv_favorites"
+                        android:layout_margin="@dimen/margin_7"/>
 
-                <TextView
-                    android:id="@+id/tv_favorites_title"
-                    android:text="제목"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
-                    app:layout_constraintTop_toBottomOf="@id/tv_favorites_location" />
+                    <TextView
+                        android:id="@+id/tv_favorites_location"
+                        android:text="장소"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:textStyle="normal"
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_600"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="6sp"
+                        app:layout_constraintStart_toEndOf="@id/iv_favorites"
+                        app:layout_constraintTop_toTopOf="@id/iv_favorites"
+                        android:layout_marginStart="@dimen/margin_14" />
 
-                <TextView
-                    android:id="@+id/tv_favorites_period"
-                    android:text="기간"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_14"
-                    android:textColor="@color/gray_800"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/item_4"
-                    app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
-                    app:layout_constraintTop_toBottomOf="@id/tv_favorites_title" />
+                    <TextView
+                        android:id="@+id/tv_favorites_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="제목"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textStyle="normal"
+                        android:textSize="17sp"
+                        android:textColor="@color/black"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="8.5sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_favorites_location" />
 
-                <TextView
-                    android:id="@+id/tv_favorites_DDay"
-                    android:text="종료 D-9"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/item_28"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="@dimen/item_4"
-                    android:textColor="@color/primary_blue"
-                    android:background="@drawable/favorites_dday_background"
-                    app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
-                    app:layout_constraintTop_toBottomOf="@id/tv_favorites_period" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_favorites_period"
+                        android:text="기간"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/item_4"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textStyle="normal"
+                        android:textSize="13sp"
+                        android:textColor="@color/gray_800"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="6.5sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_favorites_location"
+                        app:layout_constraintTop_toBottomOf="@id/tv_favorites_title" />
 
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_favorites_DDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_6"
+                        android:background="@drawable/favorites_dday_background"
+                        android:paddingHorizontal="@dimen/padding_10"
+                        android:paddingVertical="@dimen/padding_4"
+                        android:text="D-3"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:textStyle="normal"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray_800"
+                        android:letterSpacing="-0.03"
+                        android:lineSpacingExtra="7sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_favorites_period" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

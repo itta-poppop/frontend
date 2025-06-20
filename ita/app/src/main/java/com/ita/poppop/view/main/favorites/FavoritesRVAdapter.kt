@@ -14,6 +14,7 @@ class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.Favori
 
     interface FavoritesItemClickListener{
         fun onItemClick(position: Int)
+        fun onDeleteClick(position: Int)
     }
     private lateinit var favoritesItemClickListener : FavoritesItemClickListener
 
@@ -31,11 +32,23 @@ class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.Favori
                 tvFavoritesDDay.text = item.dday
             }
         }
+        fun bindClickListeners(
+            onItemClick: (Int) -> Unit,
+            onDeleteClick: (Int) -> Unit
+        ) {
+            binding.cvItemFavorites.setOnClickListener {
+                onItemClick(adapterPosition)
+            }
+
+            binding.clDeleteFavorites.setOnClickListener {
+                onDeleteClick(adapterPosition)
+            }
+        }
     }
 
     class FavoritesDiffutillCallback: DiffUtil.ItemCallback<FavoritesRVItem>() {
         override fun areItemsTheSame(oldItem: FavoritesRVItem, newItem: FavoritesRVItem): Boolean {
-            return oldItem == newItem
+            return oldItem.itemId == newItem.itemId
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -43,7 +56,7 @@ class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.Favori
             oldItem: FavoritesRVItem,
             newItem: FavoritesRVItem
         ): Boolean {
-            return oldItem === newItem
+            return oldItem == newItem
         }
 
     }
@@ -56,8 +69,9 @@ class FavoritesRVAdapter: ListAdapter<FavoritesRVItem, FavoritesRVAdapter.Favori
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        holder.itemView.setOnClickListener {
-            favoritesItemClickListener.onItemClick(position)
-        }
+        holder.bindClickListeners(
+            onItemClick = { favoritesItemClickListener.onItemClick(it) },
+            onDeleteClick = { favoritesItemClickListener.onDeleteClick(it) }
+        )
     }
 }

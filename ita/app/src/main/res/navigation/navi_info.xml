@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_infoReviewDetailFragment_to_infoReviewDetailReplyFragment"
             app:destination="@id/infoReviewDetailReplyFragment" />
+        <action
+            android:id="@+id/action_infoReviewDetailFragment_to_infoReviewEditFragment"
+            app:destination="@id/infoReviewEditFragment" />
     </fragment>
 
     <fragment
@@ -41,4 +44,8 @@
         android:id="@+id/uploadFragment"
         android:name="com.ita.poppop.view.empty.upload.UploadFragment"
         android:label="UploadFragment" />
+    <fragment
+        android:id="@+id/infoReviewEditFragment"
+        android:name="com.ita.poppop.view.empty.info.review.edit.InfoReviewEditFragment"
+        android:label="InfoReviewEditFragment" />
 </navigation>

@@ -60,7 +60,16 @@ class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReply
             infoReviewDetailReplyRVAdapter.setInfoReviewDetailReplyItemClickListener(object : InfoReviewDetailReplyRVAdapter.InfoReviewDetailReplyItemClickListener{
                 // 답글 점 클릭 시
                 override fun onDotClick(position: Int) {
-                    InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete reply")
+                    val item = infoReviewDetailReplyRVAdapter.currentList.getOrNull(position)
+                    if (item == null) {
+                        return
+                    }
+                    InfoReviewCommentDeleteBottomSheet(
+                        commentItemId = item.itemId,
+                        onDeleteConfirmed = { deleteItemId ->
+                            infoReviewDetailReplyViewModel.deleteReply(deleteItemId)
+                        }
+                    ).show(parentFragmentManager, "delete reply")
                 }
             })
             handleReplyUploadArea()
@@ -68,7 +77,7 @@ class InfoReviewDetailReplyFragment : BaseFragment<FragmentInfoReviewDetailReply
     }
 
     private fun showInfoReviewCommentDeleteBottomSheet() {
-        InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete comment")
+        //InfoReviewCommentDeleteBottomSheet().show(parentFragmentManager, "delete comment")
     }
 
     // 대댓글 게시 입력창 위치 조정

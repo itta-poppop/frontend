@@ -1,14 +1,20 @@
 package com.ita.poppop.view.main.favorites
 
+import android.app.ProgressDialog.show
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ita.poppop.R
 import com.ita.poppop.base.BaseFragment
 import com.ita.poppop.databinding.FragmentFavoritesBinding
+import com.ita.poppop.databinding.ToastMessageBinding
+import com.ita.poppop.util.SwipeHelper
 import com.ita.poppop.view.main.MainFragmentDirections
 import com.ita.poppop.view.main.hide
 import com.ita.poppop.view.main.home.InfoFragment
@@ -29,37 +35,46 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-            binding.rvFavorites.apply {
+            rvFavorites.apply {
                 layoutManager = linearLayoutManager
                 adapter = favoritesRVAdapter
 
-                val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
-                addItemDecoration(dividerItemDecoration)
+                //val dividerItemDecoration = DividerItemDecoration(context, linearLayoutManager.orientation)
+                //addItemDecoration(dividerItemDecoration)
+
+                val itemTouchHelper = ItemTouchHelper(SwipeHelper())
+                itemTouchHelper.attachToRecyclerView(this)
+                itemAnimator = null
             }
 
             favoritesViewModel.getFavorites()
             favoritesViewModel.favoritesList.observe(viewLifecycleOwner, Observer { response ->
                 favoritesRVAdapter.submitList(response)
 
-                binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
+                emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
             })
 
             favoritesRVAdapter.setFavoritesItemClickListener(object : FavoritesRVAdapter.FavoritesItemClickListener{
                 override fun onItemClick(position: Int) {
-                    /*val infoFragment = InfoFragment().apply {
-                        arguments = Bundle().apply {
-                        }
+                    val parentNavController = requireActivity().findNavController(R.id.fcv_main_activity_container)
+                    val action = MainFragmentDirections.actionMainFragmentToNaviInfo()
+                    parentNavController.navigate(action)
+                }
+
+                override fun onDeleteClick(position: Int) {
+                    favoritesViewModel.deleteFavorites(position)
+
+                    // toast message 띄우기
+                    val removedItem = favoritesRVAdapter.currentList.getOrNull(position)?.title
+                    val toastBinding = ToastMessageBinding.inflate(layoutInflater)
+                    toastBinding.tvToastMessage.text = "${removedItem}이(가) 즐겨찾기에 삭제되었습니다."
+
+                    Toast(requireContext()).apply {
+                        duration = Toast.LENGTH_LONG
+                        setGravity(Gravity.NO_GRAVITY, 0, 600)
+                        view = toastBinding.root
+                        show()
                     }
-
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fcv_favorites_fragment_container, infoFragment)
-                        .addToBackStack(null)
-                        .commit()*/
-
-                        val parentNavController = requireActivity().findNavController(R.id.fcv_main_activity_container)
-                        val action = MainFragmentDirections.actionMainFragmentToNaviInfo()
-                        parentNavController.navigate(action)
-
                 }
             })
         }

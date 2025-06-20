@@ -62,21 +62,24 @@ class InfoReviewDetailFragment : BaseFragment<FragmentInfoReviewDetailBinding>(R
                 tvReviewDetailComment.text = review.comments.toString()
                 infoReviewImageRVAdapter.submitList(review.reviewImage)
                 ivReviewDetailProfile.setImageResource(review.profileImage)
+
+                // 기존 개수 전달
+                infoReviewDetailViewModel.firstHeartCount(review.hearts)
             }
 
-            // 하트 제어
-            var isHeartClicked = false
-            var heartCount = tvReviewDetailHeart.text.toString().toIntOrNull() ?: 0
-            ivReviewDetailHeart.setOnClickListener {
-                if (isHeartClicked) {
-                    heartCount -= 1
-                    ivReviewDetailHeart.setImageResource(R.drawable.info_review_heart_icon_outlined)
-                } else {
-                    heartCount += 1
+            // 하트 상태 변화
+            infoReviewDetailViewModel.heartCount.observe(viewLifecycleOwner) { count ->
+                tvReviewDetailHeart.text = count.toString()
+            }
+            infoReviewDetailViewModel.isHeartClicked.observe(viewLifecycleOwner) { clicked ->
+                if (clicked) {
                     ivReviewDetailHeart.setImageResource(R.drawable.info_review_heart_icon_filled)
+                } else {
+                    ivReviewDetailHeart.setImageResource(R.drawable.info_review_heart_icon_outlined)
                 }
-                isHeartClicked = !isHeartClicked
-                tvReviewDetailHeart.text = heartCount.toString()
+            }
+            ivReviewDetailHeart.setOnClickListener {
+                infoReviewDetailViewModel.clickHeart()
             }
 
             ivInfoReviewDetailDot.setOnClickListener {

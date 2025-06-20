@@ -14,6 +14,16 @@ class InfoReviewDetailReplyViewModel : ViewModel() {
     val inforeviewdetailreplyList: LiveData<MutableList<InfoReviewDetailReplyRVItem>> =
         _inforeviewdetailreplyList
 
+    // 댓글 화면에서 대댓글 삭제
+    fun deleteReply(replyItemId: Int) {
+        val currentList = _inforeviewdetailreplyList.value?.toMutableList() ?: return
+        val index = currentList.indexOfFirst { it.itemId == replyItemId }
+        if (index != -1) {
+            currentList.removeAt(index)
+            _inforeviewdetailreplyList.value = currentList
+        }
+    }
+
     fun getInfoReviewDetailReply() {
         val list = mutableListOf<InfoReviewDetailReplyRVItem>()
         /*list.clear()*/

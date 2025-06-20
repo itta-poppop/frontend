@@ -12,6 +12,31 @@ class InfoReviewDetailViewModel : ViewModel() {
     private val _inforeviewdetailList = MutableLiveData<InfoReviewRVItem>()
     val review: LiveData<InfoReviewRVItem> = _inforeviewdetailList
 
+    private val _heartCount = MutableLiveData<Int>()
+    val heartCount: LiveData<Int> = _heartCount
+
+    private val _isHeartClicked = MutableLiveData<Boolean>()
+    val isHeartClicked: LiveData<Boolean> = _isHeartClicked
+
+    fun firstHeartCount(count: Int, clicked: Boolean = false) {
+        if (_heartCount.value == null) {
+            _heartCount.value = count
+            _isHeartClicked.value = clicked
+        }
+    }
+
+    fun clickHeart() {
+        val currentClicked = _isHeartClicked.value ?: false
+        val currentCount = _heartCount.value ?: 0
+        if (currentClicked) {
+            _heartCount.value = currentCount - 1
+            _isHeartClicked.value = false
+        } else {
+            _heartCount.value = currentCount + 1
+            _isHeartClicked.value = true
+        }
+    }
+
     fun getInfoReviewDetail(reviewId: Int) {
         val list = when (reviewId) {
             1 -> InfoReviewRVItem(

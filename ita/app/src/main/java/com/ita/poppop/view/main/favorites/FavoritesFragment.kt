@@ -35,7 +35,7 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
             linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-            binding.rvFavorites.apply {
+            rvFavorites.apply {
                 layoutManager = linearLayoutManager
                 adapter = favoritesRVAdapter
 
@@ -51,7 +51,7 @@ class FavoritesFragment: BaseFragment<FragmentFavoritesBinding>(R.layout.fragmen
             favoritesViewModel.favoritesList.observe(viewLifecycleOwner, Observer { response ->
                 favoritesRVAdapter.submitList(response)
 
-                binding.emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
+                emptyStateLayout.root.run { if(response.isNullOrEmpty()) show() else hide()}
             })
 
             favoritesRVAdapter.setFavoritesItemClickListener(object : FavoritesRVAdapter.FavoritesItemClickListener{

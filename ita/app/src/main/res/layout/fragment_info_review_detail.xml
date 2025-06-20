@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_review_detail_back">
 
@@ -43,6 +42,7 @@
                 android:id="@+id/iv_review_detail_profile"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/info_story_profile_background"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20"
+                android:paddingHorizontal="16dp"
+                android:clipToPadding="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_review_detail_time" />
 
@@ -98,6 +100,7 @@
                 android:id="@+id/tv_review_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="전시가 애니 속 장면들을 잘 살려놔서 보는 내내 몰입감 장난 아니었어요. ‘거짓말과 아이’, '빛과 그림자’ 같은 테같은 테마도 은근 생각하게 만들더라구요."
                 android:textSize="14sp"
                 android:textColor="#505050"
@@ -113,6 +116,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="13dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/info_review_heart_icon_outlined"
                 app:layout_constraintTop_toBottomOf="@id/tv_review_detail_content"
                 app:layout_constraintStart_toStartOf="parent"/>

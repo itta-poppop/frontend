@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navi_upload_review"
+    app:startDestination="@id/uploadReviewFragment">
+
+    <fragment
+        android:id="@+id/uploadReviewFragment"
+        android:name="com.ita.poppop.view.empty.home_upload.UploadReviewFragment"
+        android:label="UploadReviewFragment" >
+        <action
+            android:id="@+id/action_uploadReviewFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.ita.poppop.view.empty.search.SearchFragment"
+        android:label="SearchFragment" />
+</navigation>

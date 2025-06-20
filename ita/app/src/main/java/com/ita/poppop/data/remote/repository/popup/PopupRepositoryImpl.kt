@@ -1,9 +1,8 @@
-package com.ita.poppop.data.remote.repository.Trend
+package com.ita.poppop.data.remote.repository.popup
 
-import com.ita.poppop.data.remote.api.TrendApi
-import com.ita.poppop.data.remote.dto.GetTrendResponse
-import com.ita.poppop.data.remote.dto.TrendItem
-import retrofit2.Response
+import com.ita.poppop.data.remote.api.PopupApi
+import com.ita.poppop.data.remote.dto.PopupItem
+
 
 //class TrendRepositoryImpl : TrendRepository {
 //    private val service = RetrofitClient.getRetrofit()!!.create(TrendApi::class.java)
@@ -19,11 +18,11 @@ import retrofit2.Response
 //    }
 //}
 
-class TrendRepositoryImpl(
-    private val api: TrendApi
-) : TrendRepository {
+class PopupRepositoryImpl(
+    private val api: PopupApi
+) : PopupRepository {
 
-    override suspend fun getTrends(page: Int, size: Int): List<TrendItem> {
+    override suspend fun getPopups(page: Int, size: Int): List<PopupItem> {
         val response = api.getTrends(page, size)
 
         if (response.code == "200") {

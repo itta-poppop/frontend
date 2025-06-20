@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/uploadWaitingFragment"
-        android:name="com.ita.poppop.view.empty.upload.UploadWaitingFragment"
+        android:name="com.ita.poppop.view.empty.home_upload.UploadWaitingFragment"
         android:label="UploadWaitingFragment" />
 </navigation>

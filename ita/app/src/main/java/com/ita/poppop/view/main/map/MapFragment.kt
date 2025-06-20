@@ -4,12 +4,10 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.PointF
 import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import android.util.Log
-import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.ita.poppop.R
@@ -51,6 +51,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
 
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val markers = mutableListOf<Marker>()
 
@@ -243,6 +244,7 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         // 위치 권한 확인
         checkLocationPermission()
@@ -314,6 +316,20 @@ class MapFragment: BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnMa
         } else {
             // 권한 있으면 위치 추적 모드 켜기
             naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+            // 현재 위치로 카메라 이동
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    val cameraUpdate = CameraUpdate.scrollTo(latLng).animate(CameraAnimation.Easing)
+                    naverMap.moveCamera(cameraUpdate)
+                    Log.d("MapFragment", "현재 위치: $latLng")
+                } else {
+                    Log.w("MapFragment", "현재 위치 정보 없음")
+                }
+            }.addOnFailureListener {
+                Log.e("MapFragment", "현재 위치 가져오기 실패: ${it.message}")
+            }
         }
     }
 

@@ -42,11 +42,17 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int)
     open fun setupWindowInsets(){
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+
+            // IME(키보드)가 표시되어 있는지 확인
+            val isKeyboardVisible = imeInsets.bottom > 0
+
             view.setPadding(
-                view.paddingLeft,
+                view.paddingLeft,   
                 view.paddingTop,
                 view.paddingRight,
-                systemBarInsets.bottom
+                // 키보드가 올라와 있으면 패딩을 0으로, 아니면 시스템바 인셋 적용
+                if (isKeyboardVisible) 0 else systemBarInsets.bottom
             )
             insets
         }
